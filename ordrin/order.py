@@ -23,7 +23,7 @@ class OrderAPI(OrdrinAPI):
     data['last_name'] = last_name
     data.update(address.make_dict())
     data['em'] = email
-    data['password'] = UserLogin.encrypt_password(password)
+    data['password'] = UserLogin.hash_password(password)
     data.update(credit_card.make_dict())
     return _call_api('POST', ('o', restaurant_id), login=login, data=data)
     
