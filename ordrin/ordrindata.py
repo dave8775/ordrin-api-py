@@ -3,6 +3,12 @@ to pass around non-builtin groups of data"""
 
 import inspect
 
+def _validate(value, regex, err_msg):
+  try:
+    return re.match(regex, value).group(0)
+  except AttributeError:
+    raise ValueError(err_msg) 
+
 class OrdrinData(object):
   """Base class for objects that can save any data with the constructor and then
   extract it as a dictionary"""
@@ -21,6 +27,9 @@ class Address(OrdrinData):
 
   def __init__(self, addr, city, state, zip, phone, addr2=""):
     """Store the parts of the address as fields in this object."""
+    _validate(state, r'^[A-Z]{2}$', "state must be a standard two letter postal code abbreviation")
+    _validate(zip, r'^\d{5}(-\d{4})?$', "zip must be a 5 digit zip code with an optional 4 digit add-on code")
+    _validate(phone, r'^\d{3}-\d{3}-\d{4}$', "phone must be of the form '###-###-####' where # is a digit")
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
     OrdrinData.__init__(self, **{k:values[k] for k in args if k!='self'})
@@ -33,6 +42,9 @@ class CreditCard(OrdrinData):
 
   def __init__(self, name, expiry_month, expiry_year, type, bill_address, number, cvc):
     """Store the credit card info as fields in this object."""
+    _validate(str(expiry_month), r'^\d{2}$', "expiry_month must be two digits")
+    _validate(str(expiry_year), r'^\d{4}$', "expiry_yaer must be four digits")
+    _validate(str(cvc), r'^\d{3,4}$', "cvc must be a 3 or 4 digit security code")
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
     OrdrinData.__init__(self, **{k:values[k] for k in args})
@@ -81,6 +93,9 @@ class TrayItem(object):
   
   def __init__(self, item_id, quantity, *options):
     """Store the descriptors of an order item in this object."""
+    _validate(str(item_id), r'^\d+$', "item_id must be a natural number")
+    _validate(str(quantity), r'^\d+$', "quantity must be a positive natural number")
+    all(_validate(str(option), r'^\d+$', "all options must be natural numbers") for option in options)
     self.id = item_id
     self.quantity = quantity
     self.options = options

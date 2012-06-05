@@ -16,6 +16,7 @@ class OrdrinAPI(object):
       self.base_url = re.match(r'(https?://)?[-\w.~]+(/+[-\w.~]+)*', base_url).group(0) + '/'
     except AttributeError:
       raise ValueError("base_url must be a valid URL")
+    #As far as I can tell, there is no good test for an invalid key
     self.key = key
 
   def _call_api(self, method, arguments, login=None, data=None):
@@ -43,10 +44,16 @@ class OrdrinAPI(object):
     if date_time=='ASAP':
       return 'ASAP'
     else:
-      return date_time.strftime('%m-%d+%H:%M')
+      try:
+        return date_time.strftime('%m-%d+%H:%M')
+      except AttributeError:
+        raise TypeError("date_time must be a datetime.datetime object or the string 'ASAP'")
 
   def _get_asap_or_date(self, date_time):
     if date_time=='ASAP':
       return ASAP
     else:
-      return date_time.strftime('%m-%d')
+      try:
+        return date_time.strftime('%m-%d')
+      except AttributeError:
+        raise TypeError("date_time must be a datetime.datetime or datetime.date object or the string 'ASAP'")
