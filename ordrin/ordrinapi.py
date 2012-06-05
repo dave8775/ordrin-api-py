@@ -2,6 +2,7 @@ from hashlib import sha256
 import requests
 import inspect
 import json
+import re
 
 class OrdrinData(object):
 
@@ -92,16 +93,21 @@ class OrdrinError(Exception):
   pass
 
 class OrdrinAPI(object):
+  """A base object for calling one part of the ordr.in API"""
 
-  def __init__(self, url, key):
-    self.url = url
+  def __init__(self, base_url, key):
+    """Save the url and key parameters in the object"""
+    try:
+      self.base_url = re.match(r'(https?://)?[-\w.~]+(/+[-\w.~]+)*', base_url).group(0) + '/'
+    except AttributeError:
+      raise ValueError("base_url must be a valid URL")
     self.key = key
 
   def _call_api(method, arguments, login=None, data=None):
     """Calls the api at the specified url and returns the return value as Python data structures.
     Rethrows any api error as a Python exception"""
     methods = {'GET':requests.get, 'POST':requests.post, 'PUT':requests.put, 'DELETE':requests.delete}
-    full_url = self.url+'/'+'/'.join(str(arg) for arg in arguments)
+    full_url = self.base_url+'/'.join(str(arg) for arg in arguments)
     headers = {'X-NAAMA-CLIENT-AUTHENTICATION': 'id="{}", version="1"'.format(self.key)}
     if login:
       hash_code = sha256(login.password, login.email, full_url).hex_digest()
