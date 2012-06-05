@@ -65,7 +65,7 @@ class UserLogin(OrdrinData):
 
   def __init__(self, email, password):
     self.email = email
-    self.password = Login.encrypt_password(password)
+    self.password = UserLogin.encrypt_password(password)
 
   @classmethod
   def encrypt_password(cls, password):
