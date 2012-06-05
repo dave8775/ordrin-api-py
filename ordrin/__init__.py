@@ -1,7 +1,4 @@
-"""This module contains classes for accessing the Ordr.in APIs. All method calls
-return the same thing that the API calls do, but with JSON lists turned into Python
-lists and JSON hashes turned into Python dicts. All arguments that call for a
-datetime should be passed as a datetime.datetime object."""
+"""This package is a python wrapper for the ordr.in API."""
 import restaurant, user, order
 
 class Ordrin(object):
