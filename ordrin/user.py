@@ -11,13 +11,13 @@ class UserAPI(OrdrinAPI):
   def create(login, first_name, last_name):
     """Creates account for the user with the given email. Throws a relevant exception
     on failure."""
-    data = {'email':email, 'first_name':first_name, 'last_name':last_name, 'pw':login.passhash}
+    data = {'email':login.email, 'first_name':first_name, 'last_name':last_name, 'pw':login.password}
     return self._call_api('POST', ('u', login.email), data=data)
 
   def update(login, nick, first_name, last_name):
     """Updates account for the user with the given email. Throws a relevant exception
     on failure."""
-    data = {'email':email, 'first_name':first_name, 'last_name':last_name, 'pw':login.passhash}
+    data = {'email':login.email, 'first_name':first_name, 'last_name':last_name, 'pw':login.password}
     return self._call_api('POST', ('u', login.email), login=login, data=data)
 
   def get_all_addresses(login):
