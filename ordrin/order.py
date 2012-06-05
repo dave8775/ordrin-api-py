@@ -13,3 +13,8 @@ class Order(OrdrinAPI):
       data['delivery_time'] = delivery_date_time.strftime('%H:%M')
     data['first_name'] = first_name
     data['last_name'] = last_name
+    data.update(address.make_dict())
+    data['em'] = email
+    data.update(credit_card.make_dict())
+    return _call_api('POST', ('o', restaurant_id), login=login, data=data)
+    

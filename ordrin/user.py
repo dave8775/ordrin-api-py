@@ -46,16 +46,20 @@ class UserAPI(OrdrinAPI):
     """Get all credit cards for the user with the given email."""
     return self._call_api('GET', ('u', login.email, 'ccs'), login=login)
 
-  def get_credit_card(email, password, card_nick):
+  def get_credit_card(login, card_nick):
     """Get a particular credit card for the given user."""
     return self._call_api('GET', ('u', login.email, 'ccs', card_nick), login=login)
 
-  def set_credit_card(email, password, card_nick, credit_card):
+  def set_credit_card(login, card_nick, credit_card, phone):
     """Set a particular credit card for the given user. Throws a relevant exception
     on failure"""
+    data = credit_card.make_dict()
+    data.update(login.make_dict())
+    data['nick'] = card_nick
+    data['phone'] = phone
     return self._call_api('PUT', ('u', login.email, 'ccs', card_nick), login=login, data=credit_card.make_dict())
 
-  def remove_credit_card(email, password, card_nick):
+  def remove_credit_card(login, card_nick):
     """Delete a particular credit card for the given user. Throws a relevant exception
     on failure"""
     return self._call_api('DELETE', ('u', login.email, 'ccs', card_nick), login=login)
@@ -64,7 +68,7 @@ class UserAPI(OrdrinAPI):
     """Get a list of previous orders."""
     return self._call_api('GET', ('u', login.email, 'orders'), login=login)
 
-  def get_order_detail(email, password, order_id):
+  def get_order_detail(login, order_id):
     """Get details of a particular previous order."""
     return self._call_api('GET', ('u', login.email, 'orders', order_id), login=login)
 

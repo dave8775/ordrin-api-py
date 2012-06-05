@@ -25,44 +25,46 @@ class Address(OrdrinData):
 class CreditCard(OrdrinData):
   """Represents information about a credit card"""
 
+  fields = ('number', 'cvc', 'expiry_month', 'expiry_year', 'expiry',
+            'bill_addr', 'bill_addr2', 'bill_city', 'bill_state', 'bill_zip')
+
   def __init__(self, name, expiry_month, expiry_year, type, bill_address, number, cvc):
     """Saves the credit card info as fields in this object."""
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
     OrdrinData.__init__(self, {k:values[k] for k in args})
-##    self.name = name
-##    self.expiry_month = expiry_month
-##    self.expiry_year = expiry_year
-##    self.type = type
-##    self.bill_address = bill_address
-##    self.number = number
-##    self.cvc = cvc
 
   @property
   def bill_addr(self):
-    return bill_address.addr
+    return self.bill_address.addr
 
   @property
   def bill_addr2(self):
-    return bill_address.addr2
+    return self.bill_address.addr2
 
   @property
   def bill_city(self):
-    return bill_address.city
+    return self.bill_address.city
 
   @property
   def bill_state(self):
-    return bill_address.state
+    return self.bill_address.state
 
   @property
   def bill_zip(self):
-    return bill_address.zip
+    return self.bill_address.zip
 
-class UserLogin(object):
+  @property
+  def expiry(self):
+    return '{}/{}'.format(self.expiry_month, self.expiry_year)
+
+class UserLogin(OrdrinData):
+
+  fields = ('email', 'password')
 
   def __init__(self, email, password):
     self.email = email
-    self.passhash = sha256(password).hexdigest()
+    self.password = sha256(password).hexdigest()
 
 class TrayItem(object):
   def __init__(self, item_id, quantity, *options):
