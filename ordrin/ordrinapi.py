@@ -86,7 +86,7 @@ class Tray(object):
     self.items = items
 
   def __str__(self):
-    return ','.join(str(i) for i in items)
+    return '+'.join(str(i) for i in items)
 
 class OrdrinError(Exception):
   pass
