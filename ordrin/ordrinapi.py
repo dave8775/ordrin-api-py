@@ -21,7 +21,7 @@ class Address(OrdrinData):
     """Saves the parts of the address as fields in this object."""
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
-    OrdrinData.__init__(self, {k:values[k] for k in args})
+    OrdrinData.__init__(self, **{k:values[k] for k in args})
 
 class CreditCard(OrdrinData):
   """Represents information about a credit card"""
@@ -33,7 +33,7 @@ class CreditCard(OrdrinData):
     """Saves the credit card info as fields in this object."""
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
-    OrdrinData.__init__(self, {k:values[k] for k in args})
+    OrdrinData.__init__(self, **{k:values[k] for k in args})
 
   @property
   def bill_addr(self):
