@@ -107,7 +107,8 @@ class Tray(object):
   """Represents a list of items in an order"""
 
   def __init__(self, *items):
-    """Store the list of items in this object"""
+    """Store the list of items in this object. Each argument should be of type
+    Item"""
     self.items = items
 
   def __str__(self):
