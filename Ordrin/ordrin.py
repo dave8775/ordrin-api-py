@@ -20,7 +20,7 @@ class Address(OrdrinData):
     """Saves the parts of the address as fields in this object."""
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
-    OrdrinData.__init__(self, {k, values[k] for k in args})
+    OrdrinData.__init__(self, {k:values[k] for k in args})
 
 class CreditCard(OrdrinData):
   """Represents information about a credit card"""
@@ -29,7 +29,7 @@ class CreditCard(OrdrinData):
     """Saves the credit card info as fields in this object."""
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
-    OrdrinData.__init__(self, {k, values[k] for k in args})
+    OrdrinData.__init__(self, {k:values[k] for k in args})
 ##    self.name = name
 ##    self.expiry_month = expiry_month
 ##    self.expiry_year = expiry_year
@@ -91,8 +91,8 @@ class OrdrinAPI(object):
     self.key = key
 
   def _call_api(method, arguments, login=None, data=None):
-  """Calls the api at the specified url and returns the return value as Python data structures.
-  Rethrows any api error as a Python exception"""
+    """Calls the api at the specified url and returns the return value as Python data structures.
+    Rethrows any api error as a Python exception"""
 
   def _get_asap_or_datetime(date_time):
     if date_time=='ASAP':
