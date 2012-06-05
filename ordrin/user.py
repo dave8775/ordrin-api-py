@@ -1,10 +1,11 @@
-import ordrin
-class UserAPI(ordrin.OrdrinAPI):
+from ordrinapi import OrdrinAPI
+
+class UserAPI(OrdrinAPI):
   """This class will be used to access the user API"""
 
   def __init__(url):
     """Initializes this API class with the url that it accesses"""
-    ordrin.OrdrinAPI.__init__(self, url)
+    OrdrinAPI.__init__(self, url)
 
   def get(login):
     """Gets account information for the user with the given email.

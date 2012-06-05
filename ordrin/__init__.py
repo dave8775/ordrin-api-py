@@ -13,8 +13,8 @@ class Ordrin(object):
     No API calls will work until this function is called"""
     self.api_key = api_key
     if restaurant_url:
-      self.restaurant = ordrin.Restaurant(restaurant_url, self)
+      self.restaurant = restaurant.Restaurant(restaurant_url, self)
     if user_url:
-      self.user = ordrin.User(user_url)
+      self.user = user.User(user_url)
     if order_url:
-      self.order = ordrin.Order(order_url)
+      self.order = order.Order(order_url)
