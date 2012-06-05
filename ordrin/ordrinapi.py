@@ -3,6 +3,7 @@ import requests
 import json
 import re
 import urllib
+from ordrindata import _validate
 
 class OrdrinError(Exception):
   pass
@@ -12,10 +13,7 @@ class OrdrinAPI(object):
 
   def __init__(self, key, base_url):
     """Save the url and key parameters in the object"""
-    try:
-      self.base_url = re.match(r'(https?://)?[-\w.~]+(/+[-\w.~]+)*', base_url).group(0) + '/'
-    except AttributeError:
-      raise ValueError("base_url must be a valid URL")
+    self.base_url = _validate(base_url, r'(https?://)?[-\w.~]+(/+[-\w.~]+)*', "base_url must be a valid URL")+'/'
     #As far as I can tell, there is no good test for an invalid key
     self.key = key
 
