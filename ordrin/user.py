@@ -3,10 +3,6 @@ from ordrinapi import OrdrinAPI
 class UserAPI(OrdrinAPI):
   """This class will be used to access the user API"""
 
-  def __init__(url):
-    """Initializes this API class with the url that it accesses"""
-    OrdrinAPI.__init__(self, url)
-
   def get(login):
     """Gets account information for the user with the given email.
     Hashes password with SHA256 before sending"""

@@ -1,10 +1,6 @@
 from ordrinapi import OrdrinAPI
 
-class Order(OrdrinAPI):
-
-  def __init__(url):
-    """Initializes this API class with the url that it accesses"""
-    OrdrinAPI.__init__(self, url)
+class OrderAPI(OrdrinAPI):
 
   def order(restaurant_id, tray, tip, delivery_date_time, first_name, last_name, address, email, credit_card, login=None):
     data = {'restaurant_id':restaurant_id, 'tray':str(tray), 'tip':tip}
@@ -27,7 +23,7 @@ class Order(OrdrinAPI):
     data['last_name'] = last_name
     data.update(address.make_dict())
     data['em'] = email
-    data['password'] = Login.encrypt_password(password)
+    data['password'] = UserLogin.encrypt_password(password)
     data.update(credit_card.make_dict())
     return _call_api('POST', ('o', restaurant_id), login=login, data=data)
     

@@ -1,11 +1,7 @@
-from ordrin import OrdrinAPI
+from ordrinapi import OrdrinAPI
 
 class RestaurantAPI(OrdrinAPI):
   """This class will be used to access the restaurant API"""
-
-  def __init__(url):
-    """Initializes this API class with the url that it accesses"""
-    OrdrinAPI.__init__(self, url)
 
   def get_delivery_list(date_time, address):
     """Calls the dl API function with the given arguments."""
