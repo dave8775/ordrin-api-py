@@ -1,6 +1,7 @@
 from hashlib import sha256
 import requests
 import inspect
+import json
 
 class OrdrinData(object):
 
@@ -83,7 +84,7 @@ class Tray(object):
   def __str__(self):
     return ','.join(str(i) for i in items)
 
-class OrdrinException(Exception):
+class OrdrinError(Exception):
   pass
 
 class OrdrinAPI(object):
@@ -95,6 +96,21 @@ class OrdrinAPI(object):
   def _call_api(method, arguments, login=None, data=None):
     """Calls the api at the specified url and returns the return value as Python data structures.
     Rethrows any api error as a Python exception"""
+    methods = {'GET':requests.get, 'POST':requests.post, 'PUT':requests.put, 'DELETE':requests.delete}
+    full_url = self.url+'/'+'/'.join(str(arg) for arg in arguments)
+    headers = {'X-NAAMA-CLIENT-AUTHENTICATION': 'id="{}", version="1"'.format(self.key)}
+    if login:
+      hash_code = sha256(login.password, login.email, full_url).hex_digest()
+      headers['X-NAAMA-AUTHENTICATION'] = 'username="{}", response="{}", version="1"'.format(login.email, hash_code)
+    r = methods[method](full_url, data=data)
+    r.raise_for_status()
+    result = json.load(r.text)
+    if '_error' in result and result['_error']:
+      if 'text' in result:
+        raise OrdrinError((result['msg'], result['text']))
+      else:
+        raise OrdrinError(result['msg'])
+    return result
 
   def _get_asap_or_datetime(date_time):
     if date_time=='ASAP':
