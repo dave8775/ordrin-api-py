@@ -3,6 +3,7 @@ import requests
 import inspect
 import json
 import re
+import urllib
 
 class OrdrinData(object):
 
@@ -104,10 +105,10 @@ class OrdrinAPI(object):
     self.key = key
 
   def _call_api(method, arguments, login=None, data=None):
-    """Calls the api at the specified url and returns the return value as Python data structures.
+    """Calls the api at the saved url and returns the return value as Python data structures.
     Rethrows any api error as a Python exception"""
     methods = {'GET':requests.get, 'POST':requests.post, 'PUT':requests.put, 'DELETE':requests.delete}
-    full_url = self.base_url+'/'.join(str(arg) for arg in arguments)
+    full_url = self.base_url+'/'.join(urllib.quote_plus(str(arg)) for arg in arguments)
     headers = {'X-NAAMA-CLIENT-AUTHENTICATION': 'id="{}", version="1"'.format(self.key)}
     if login:
       hash_code = sha256(login.password, login.email, full_url).hex_digest()
