@@ -1,7 +1,7 @@
 """This package is a python wrapper for the ordr.in API."""
 import restaurant, user, order
 
-class Ordrin(object):
+class APIs(object):
 
   def __init__(self, api_key, restaurant_url=None, user_url=None, order_url=None):
     """Sets up this module to make API calls. The first argument is the developer's
@@ -12,4 +12,4 @@ class Ordrin(object):
     if user_url:
       self.user = user.UserAPI(api_key, user_url)
     if order_url:
-      self.order = order.Order(api_key, order_url)
+      self.order = order.OrderAPI(api_key, order_url)
