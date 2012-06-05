@@ -26,9 +26,8 @@ class Order(OrdrinAPI):
     data['first_name'] = first_name
     data['last_name'] = last_name
     data.update(address.make_dict())
-    login = Login(email, password)
     data['em'] = email
-    data['password'] = login.password
+    data['password'] = Login.encrypt_password(password)
     data.update(credit_card.make_dict())
     return _call_api('POST', ('o', restaurant_id), login=login, data=data)
     

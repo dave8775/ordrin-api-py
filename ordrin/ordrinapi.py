@@ -65,7 +65,11 @@ class UserLogin(OrdrinData):
 
   def __init__(self, email, password):
     self.email = email
-    self.password = sha256(password).hexdigest()
+    self.password = Login.encrypt_password(password)
+
+  @classmethod
+  def encrypt_password(cls, password):
+    return sha256(password).hexdigest()
 
 class TrayItem(object):
   def __init__(self, item_id, quantity, *options):
