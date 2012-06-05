@@ -23,7 +23,7 @@ class Address(OrdrinData):
     """Store the parts of the address as fields in this object."""
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
-    OrdrinData.__init__(self, **{k:values[k] for k in args})
+    OrdrinData.__init__(self, **{k:values[k] for k in args if k!='self'})
 
 class CreditCard(OrdrinData):
   """Represents information about a credit card"""
