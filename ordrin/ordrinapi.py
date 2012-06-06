@@ -34,7 +34,10 @@ class OrdrinApi(object):
     except KeyError:
       raise error.request_method(method)
     r.raise_for_status()
-    result = json.loads(r.text)
+    try:
+      result = json.loads(r.text)
+    except ValueError:
+      raise ApiInvalidResponseError(r.text)
     if '_error' in result and result['_error']:
       if 'text' in result:
         raise errors.ApiError((result['msg'], result['text']))

@@ -7,6 +7,9 @@ class ApiError(OrdrinError):
     OrdrinError.__init__(self, msg)
     self.text = text
 
+class ApiInvalidResponseError(OrdrinError):
+  pass
+
 class BadValueError(OrdrinError, ValueError):
   def __init__(self, msg):
     OrdrinError.__init__(self, msg)
@@ -61,4 +64,4 @@ def method(value):
   return BadValueError("method must be a word: {}".format(value))
 
 def request_method(value):
-  return ApiError("Method not a valid API request method: {}".format(value))
+  return ApiError("Method not a valid HTTP request method: {}".format(value))
