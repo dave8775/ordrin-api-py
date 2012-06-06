@@ -27,9 +27,7 @@ class OrdrinApi(object):
     if login:
       hash_code = sha256(login.password, login.email, full_url).hex_digest()
       headers['X-NAAMA-AUTHENTICATION'] = 'username="{}", response="{}", version="1"'.format(login.email, hash_code)
-    try:
-      r = methods[method](full_url, data=data)
-    except AttributeError
+    r = methods[method](full_url, data=data)
     r.raise_for_status()
     result = json.loads(r.text)
     if '_error' in result and result['_error']:
