@@ -12,7 +12,10 @@ class OrderApi(OrdrinApi):
     data['last_name'] = normalize(last_name, 'name')
     data.update(address.make_dict())
     data['em'] = normalize(email, 'email')
-    data.update(credit_card.make_dict())
+    try:
+      data.update(credit_card.make_dict())
+    except AttributeError:
+      data['card_nick'] = normalize(credit_card, 'nick')
     return data
 
   def order(self, restaurant_id, tray, tip, delivery_date_time, first_name, last_name, address, email, credit_card, login=None):
