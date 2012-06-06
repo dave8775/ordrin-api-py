@@ -46,7 +46,7 @@ class CreditCard(OrdrinData):
     cvc = normalize(cvc, 'cvc')
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
-    OrdrinData.__init__(self, **{k:values[k] for k in args})
+    OrdrinData.__init__(self, **{k:values[k] for k in args if k!='self'})
 
   @property
   def bill_addr(self):

@@ -38,7 +38,7 @@ class UserApi(OrdrinApi):
   def set_address(self, login, addr_nick, address):
     """Set a particular address for the given user. Throws a relevant exception
     on failure"""
-    return self._call_api('POST', ('u', login.email, 'addrs', normalize(addr_nick, 'nick')), login=login, data=address.make_dict())
+    return self._call_api('PUT', ('u', login.email, 'addrs', normalize(addr_nick, 'nick')), login=login, data=address.make_dict())
       
   def remove_address(self, login, addr_nick):
     """Delete a particular address for the given user. Throws a relevant exception

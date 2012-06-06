@@ -35,11 +35,15 @@ class OrdrinApi(object):
     #for debugging purposes only
     print 'uri:', uri
     print 'headers:', headers
+    print 'method:', method
     try:
-      r = self._methods[method](full_url, data=data)
+      r = self._methods[method](full_url, data=data, headers=headers)
     except KeyError:
       raise error.request_method(method)
     r.raise_for_status()
+    #for debugging purposes only
+    print 'content:', repr(r.content), 'END CONTENT'
+    print r.text
     try:
       result = json.loads(r.text)
     except ValueError:
