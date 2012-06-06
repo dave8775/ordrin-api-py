@@ -8,8 +8,8 @@ class APIs(object):
     API key. The other three are the urls corresponding to the three parts of the api.
     No API calls will work until this function is called"""
     if restaurant_url:
-      self.restaurant = restaurant.RestaurantAPI(api_key, restaurant_url)
+      self.restaurant = restaurant.RestaurantApi(api_key, restaurant_url)
     if user_url:
-      self.user = user.UserAPI(api_key, user_url)
+      self.user = user.UserApi(api_key, user_url)
     if order_url:
-      self.order = order.OrderAPI(api_key, order_url)
+      self.order = order.OrderApi(api_key, order_url)

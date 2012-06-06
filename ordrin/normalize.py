@@ -1,3 +1,5 @@
+import re
+
 import errors
 
 def _normalize_regex(regex, error):
@@ -14,7 +16,7 @@ def _normalize_phone(phone_number):
   if len(phone)==10:
     return '{}{}{}-{}{}{}-{}{}{}{}'.format(*phone)
   else:
-    raise errors.phone_number(phone_number)
+    raise errors.phone(phone_number)
 
 def _normalize_money(money):
   match = re.match(r'^\$?(\d+(\.\d+)?)$', money.replace(',', ''))
@@ -24,7 +26,7 @@ def _normalize_money(money):
     raise errors.money(money)
   
 def _normalize_asap_or_datetime(date_time):
-  if date_time=='ASAP':
+  if str(date_time).upper()=='ASAP':
     return 'ASAP'
   else:
     try:
@@ -33,8 +35,8 @@ def _normalize_asap_or_datetime(date_time):
       raise errors.date_time(date_time)
 
 def _normalize_asap_or_date(date):
-  if date_time=='ASAP':
-    return ASAP
+  if str(date_time).upper()=='ASAP':
+    return 'ASAP'
   else:
     try:
       return date.strftime('%m-%d')
@@ -60,10 +62,16 @@ def _normalize_method(method):
   else:
     raise errors.method
 
+def _normalize_state(state):
+  if re.match(r'^[A-Za-z]{2}$', state):
+    return state.upper()
+  else:
+    raise errors.state(state)
+
 def _normalize_unchecked(value):
   return value
 
-_normalizers = {'state': _normalize_regex(r'^[A-Za-z]{2}$', errors.state),
+_normalizers = {'state': _normalize_state,
                 'zip': _normalize_regex(r'^\d{5}$', errors.zip_code),
                 'phone': _normalize_phone,
                 'number': _normalize_regex(r'^\d+$', errors.number),
@@ -80,9 +88,9 @@ _normalizers = {'state': _normalize_regex(r'^[A-Za-z]{2}$', errors.state),
                 'url': _normalize_url,
                 'method': _normalize_method}
 
-def normalize(value, normaliezr_name):
+def normalize(value, normalizer_name):
   try:
     normalizer = _normalizers[normalizer_name]
   except KeyError:
     raise errors.normalizer(normalizer_name)
-  return validator(str(value))
+  return normalizer(str(value))

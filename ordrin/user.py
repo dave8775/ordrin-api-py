@@ -1,7 +1,7 @@
-from ordrinapi import OrdrinAPI
+from ordrinapi import OrdrinApi
 from normalize import normalize
 
-class UserAPI(OrdrinAPI):
+class UserApi(OrdrinApi):
   """This class will be used to access the user API"""
 
   def get(self, login):
@@ -74,7 +74,7 @@ class UserAPI(OrdrinAPI):
 
   def get_order_detail(self, login, order_id):
     """Get details of a particular previous order."""
-    return self._call_api('GET', ('u', login.email, 'orders', normalize(order_id, 'number'), login=login)
+    return self._call_api('GET', ('u', login.email, 'orders', normalize(order_id, 'number')), login=login)
 
   def set_password(self, login, new_password):
     """Change the user's password."""

@@ -1,7 +1,7 @@
-from ordrinapi import OrdrinAPI
+from ordrinapi import OrdrinApi
 from normalize import normalize
 
-class OrderAPI(OrdrinAPI):
+class OrderApi(OrdrinApi):
 
   def _build_dict(self, restaurant_id, tray, tip, delivery_date_time, first_name, last_name, address, email, credit_card):
     data = {'restaurant_id':restaurant_id, 'tray':str(tray), 'tip':tip}

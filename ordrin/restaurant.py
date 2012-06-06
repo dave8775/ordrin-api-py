@@ -1,7 +1,7 @@
-from ordrinapi import OrdrinAPI
+from ordrinapi import OrdrinApi
 from normalize import normalize
 
-class RestaurantAPI(OrdrinAPI):
+class RestaurantApi(OrdrinApi):
   """This class will be used to access the restaurant API"""
 
   def get_delivery_list(self, date_time, address):
