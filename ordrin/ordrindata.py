@@ -2,6 +2,8 @@
 to pass around non-builtin groups of data"""
 
 import inspect
+from hashlib import sha256
+
 from normalize import normalize
 
 class OrdrinData(object):

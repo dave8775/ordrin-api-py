@@ -50,9 +50,9 @@ def _normalize_time(time):
     raise errors.time(time)
 
 def _normalize_url(url):
-  match = re.match(r'(https?://)[-\w.~]+(/+[-\w.~]+)*', url)
+  match = re.match(r'(https?://)[-\w.~]+(:\d+)?(/[-\w.~]+)*', url)
   if match:
-    return match.group(0)+'/'
+    return match.group(0)
   else:
     raise errors.url(url)
 

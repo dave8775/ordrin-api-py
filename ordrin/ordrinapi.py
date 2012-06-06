@@ -22,13 +22,19 @@ class OrdrinApi(object):
     """Calls the api at the saved url and returns the return value as Python data structures.
     Rethrows any api error as a Python exception"""
     method = normalize(method, 'method')
-    full_url = self.base_url+('/'.join(urllib.quote_plus(str(arg)) for arg in arguments))
+    uri = '/'+('/'.join(urllib.quote_plus(str(arg)) for arg in arguments))
+    full_url = self.base_url+uri
     #for debugging purposes only
     print "requesting from:", full_url
-    headers = {'X-NAAMA-CLIENT-AUTHENTICATION': 'id="{}", version="1"'.format(self.key)}
+    headers = {}
+    if self.key:
+      headers['X-NAAMA-CLIENT-AUTHENTICATION'] = 'id="{}", version="1"'.format(self.key)
     if login:
-      hash_code = sha256(login.password, login.email, full_url).hex_digest()
+      hash_code = sha256(''.join((login.password, login.email, uri))).hexdigest()
       headers['X-NAAMA-AUTHENTICATION'] = 'username="{}", response="{}", version="1"'.format(login.email, hash_code)
+    #for debugging purposes only
+    print 'uri:', uri
+    print 'headers:', headers
     try:
       r = self._methods[method](full_url, data=data)
     except KeyError:
