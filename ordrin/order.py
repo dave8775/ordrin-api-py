@@ -17,11 +17,11 @@ class OrderAPI(OrdrinAPI):
 
   def order(self, restaurant_id, tray, tip, delivery_date_time, first_name, last_name, address, email, credit_card, login=None):
     
-    data = _build_data(restaurant_id, tray, tip, delivery_date_time, first_name, last_name, email, address, credit_card)
+    data = self._build_dict(restaurant_id, tray, tip, delivery_date_time, first_name, last_name, email, address, credit_card)
     return _call_api('POST', ('o', restaurant_id), login=login, data=data)
 
   def order_create_user(self, restaurant_id, tray, tip, delivery_date_time, first_name, last_name, address, email, password, credit_card):
-    data = _build_data(restaurant_id, tray, tip, delivery_date_time, first_name, last_name, email, address, credit_card)
+    data = self._build_dict(restaurant_id, tray, tip, delivery_date_time, first_name, last_name, email, address, credit_card)
     data['password'] = UserLogin.hash_password(password)
     return _call_api('POST', ('o', restaurant_id), login=login, data=data)
     

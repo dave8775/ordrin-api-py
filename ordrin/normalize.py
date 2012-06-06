@@ -48,11 +48,17 @@ def _normalize_time(time):
     raise errors.time(time)
 
 def _normalize_url(url):
-  match = r.match(r'(https?://)?[-\w.~]+(/+[-\w.~]+)*', url)
+  match = re.match(r'(https?://)?[-\w.~]+(/+[-\w.~]+)*', url)
   if match:
     return match.group(0)+'/'
   else:
     raise errors.url(url)
+
+def _normalize_method(method):
+  if re.match(r'^[a-zA-Z]+$', method):
+    return method.upper()
+  else:
+    raise errors.method
 
 def _normalize_unchecked(value):
   return value
@@ -71,7 +77,8 @@ _normalizers = {'state': _normalize_regex(r'^[A-Za-z]{2}$', errors.state),
                 'datetime': _normalize_asap_or_datetime,
                 'date': _normalize_asap_or_date,
                 'time': _normalize_time,
-                'url': }
+                'url': _normalize_url,
+                'method': _normalize_method}
 
 def normalize(value, normaliezr_name):
   try:

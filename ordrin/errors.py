@@ -56,3 +56,9 @@ def time(value):
 
 def url(value):
   return BadValueError("url must be a proper url: {}".format(value))
+
+def method(value):
+  return BadValueError("method must be a word: {}".format(value))
+
+def request_method(value):
+  return ApiError("Method not a valid API request method: {}".format(value))
