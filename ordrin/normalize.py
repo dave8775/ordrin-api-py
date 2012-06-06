@@ -23,6 +23,9 @@ def _normalize_money(money):
   else:
     raise errors.money(money)
 
+def _normalize_unchecked(value):
+  return value
+
 _normalizers = {'state': _normalize_regex(r'^[A-Za-z]{2}$', errors.state),
                 'zip': _normalize_regex(r'^\d{5}$', errors.zip_code),
                 'phone': _normalize_phone,
@@ -31,7 +34,9 @@ _normalizers = {'state': _normalize_regex(r'^[A-Za-z]{2}$', errors.state),
                 'year': _normalize_regex(r'^\d{4}$', errors.year),
                 'month': _normalize_regex(r'^\d{2}$', errors.month),
                 'cvc': _normalize_regex(r'^\d{3,4}$', errors.cvc),
-                'email': _normalize_regex(r'^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,3}', errors.email)}
+                'email': _normalize_regex(r'^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,3}', errors.email),
+                'nick': _normalize_regex(r'^[-\w]$', errors.nick),
+                'name': _normalize_unchecked}
 
 def normalize(value, normaliezr_name):
   try:

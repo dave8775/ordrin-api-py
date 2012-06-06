@@ -11,13 +11,19 @@ class UserAPI(OrdrinAPI):
   def create(self, login, first_name, last_name):
     """Creates account for the user with the given email. Throws a relevant exception
     on failure."""
-    data = {'email':login.email, 'first_name':first_name, 'last_name':last_name, 'pw':login.password}
+    data = {'email':login.email,
+            'first_name':normalize(first_name, 'name'),
+            'last_name':normalize(last_name, 'name'),
+            'pw':login.password}
     return self._call_api('POST', ('u', login.email), data=data)
 
-  def update(self, login, nick, first_name, last_name):
+  def update(self, login, first_name, last_name):
     """Updates account for the user with the given email. Throws a relevant exception
     on failure."""
-    data = {'email':login.email, 'first_name':first_name, 'last_name':last_name, 'pw':login.password}
+    data = {'email':login.email,
+            'first_name':normalize(first_name, 'name'),
+            'last_name':normalize(last_name, 'name'),
+            'pw':login.password}
     return self._call_api('POST', ('u', login.email), login=login, data=data)
 
   def get_all_addresses(self, login):
@@ -26,17 +32,17 @@ class UserAPI(OrdrinAPI):
 
   def get_address(self, login, addr_nick):
     """Get a particular address for the given user."""
-    return self._call_api('GET', ('u', login.email, 'addrs', addr_nick), login=login)
+    return self._call_api('GET', ('u', login.email, 'addrs', normalize(addr_nick, 'nick')), login=login)
 
   def set_address(self, login, addr_nick, address):
     """Set a particular address for the given user. Throws a relevant exception
     on failure"""
-    return self._call_api('POST', ('u', login.email, 'addrs', addr_nick), login=login, data=address.make_dict())
+    return self._call_api('POST', ('u', login.email, 'addrs', normalize(addr_nick, 'nick')), login=login, data=address.make_dict())
       
   def remove_address(self, login, addr_nick):
     """Delete a particular address for the given user. Throws a relevant exception
     on failure"""
-    return self._call_api('DELETE', ('u', login.email, 'addrs', addr_nick), login=login)
+    return self._call_api('DELETE', ('u', login.email, 'addrs', normalize(addr_nick, 'nick')), login=login)
 
   def get_all_credit_cards(self, login):
     """Get all credit cards for the user with the given email."""
@@ -44,21 +50,22 @@ class UserAPI(OrdrinAPI):
 
   def get_credit_card(self, login, card_nick):
     """Get a particular credit card for the given user."""
-    return self._call_api('GET', ('u', login.email, 'ccs', card_nick), login=login)
+    return self._call_api('GET', ('u', login.email, 'ccs', normalize(card_nick, 'nick')), login=login)
 
   def set_credit_card(self, login, card_nick, credit_card, phone):
     """Set a particular credit card for the given user. Throws a relevant exception
     on failure"""
+    card_nick = normalize(card_nick, 'nick')
     data = credit_card.make_dict()
     data.update(login.make_dict())
     data['nick'] = card_nick
-    data['phone'] = phone
-    return self._call_api('PUT', ('u', login.email, 'ccs', card_nick), login=login, data=credit_card.make_dict())
+    data['phone'] = normalize(phone, 'phone')
+    return self._call_api('PUT', ('u', login.email, 'ccs', card_nick), login=login, data=data)
 
   def remove_credit_card(self, login, card_nick):
     """Delete a particular credit card for the given user. Throws a relevant exception
     on failure"""
-    return self._call_api('DELETE', ('u', login.email, 'ccs', card_nick), login=login)
+    return self._call_api('DELETE', ('u', login.email, 'ccs', normalize(card_nick, 'nick')), login=login)
 
   def get_order_history(self, login):
     """Get a list of previous orders."""
@@ -66,8 +73,11 @@ class UserAPI(OrdrinAPI):
 
   def get_order_detail(self, login, order_id):
     """Get details of a particular previous order."""
-    return self._call_api('GET', ('u', login.email, 'orders', order_id), login=login)
+    return self._call_api('GET', ('u', login.email, 'orders', normalize(order_id, 'number'), login=login)
 
   def set_password(self, login, new_password):
     """Change the user's password."""
-    return self._call_api('PUT', ('u', login.email, 'password'), login=login, data={'password':new_password})
+    data = {'email': login.email,
+            'password': UserLogin.hash_password(new_password),
+            'previous_password': login.password}
+    return self._call_api('PUT', ('u', login.email, 'password'), login=login, data=data)

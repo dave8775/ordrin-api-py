@@ -41,3 +41,6 @@ def email(value):
 
 def normalizer(value):
   return BadValueError("Unknown validator name: {}".format(value))
+
+def nick(value):
+  return BadValueError("Nick names can only have letters, nubmers, dashes, and underscores: {}".format(value))
