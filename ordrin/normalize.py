@@ -23,7 +23,7 @@ def _normalize_money(money):
   else:
     raise errors.money(money)
   
-def _normalize_asap_or_datetime(self, date_time):
+def _normalize_asap_or_datetime(date_time):
   if date_time=='ASAP':
     return 'ASAP'
   else:
@@ -32,7 +32,7 @@ def _normalize_asap_or_datetime(self, date_time):
     except AttributeError:
       raise errors.date_time(date_time)
 
-def _normalize_asap_or_date(self, date):
+def _normalize_asap_or_date(date):
   if date_time=='ASAP':
     return ASAP
   else:
@@ -41,11 +41,18 @@ def _normalize_asap_or_date(self, date):
     except AttributeError:
       raise errors.date(date)
 
-def _normalize_time(self, time):
+def _normalize_time(time):
   try:
     return time.strftime('%H:%M')
   except AttributeError:
     raise errors.time(time)
+
+def _normalize_url(url):
+  match = r.match(r'(https?://)?[-\w.~]+(/+[-\w.~]+)*', url)
+  if match:
+    return match.group(0)+'/'
+  else:
+    raise errors.url(url)
 
 def _normalize_unchecked(value):
   return value
@@ -63,7 +70,8 @@ _normalizers = {'state': _normalize_regex(r'^[A-Za-z]{2}$', errors.state),
                 'name': _normalize_unchecked,
                 'datetime': _normalize_asap_or_datetime,
                 'date': _normalize_asap_or_date,
-                'time': _normalize_time}
+                'time': _normalize_time,
+                'url': }
 
 def normalize(value, normaliezr_name):
   try:

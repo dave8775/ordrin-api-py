@@ -53,3 +53,6 @@ def date(value):
 
 def time(value):
   return BadValueError("time must be a datetime.datetime or datetime.time object: {}".format(value))
+
+def url(value):
+  return BadValueError("url must be a proper url: {}".format(value))

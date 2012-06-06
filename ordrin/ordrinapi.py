@@ -12,7 +12,7 @@ class OrdrinApi(object):
 
   def __init__(self, key, base_url):
     """Save the url and key parameters in the object"""
-    self.base_url = _validate(base_url, r'(https?://)?[-\w.~]+(/+[-\w.~]+)*', "base_url must be a valid URL")+'/'
+    self.base_url = normalise(base_url, url)
     #As far as I can tell, there is no good test for an invalid key
     self.key = key
 
