@@ -3,12 +3,11 @@ import requests
 import json
 import re
 import urllib
+
 from ordrindata import _validate
+from errors import ApiError
 
-class OrdrinError(Exception):
-  pass
-
-class OrdrinAPI(object):
+class OrdrinApi(object):
   """A base object for calling one part of the ordr.in API"""
 
   def __init__(self, key, base_url):
@@ -28,14 +27,16 @@ class OrdrinAPI(object):
     if login:
       hash_code = sha256(login.password, login.email, full_url).hex_digest()
       headers['X-NAAMA-AUTHENTICATION'] = 'username="{}", response="{}", version="1"'.format(login.email, hash_code)
-    r = methods[method](full_url, data=data)
+    try:
+      r = methods[method](full_url, data=data)
+    except AttributeError
     r.raise_for_status()
     result = json.loads(r.text)
     if '_error' in result and result['_error']:
       if 'text' in result:
-        raise OrdrinError((result['msg'], result['text']))
+        raise ApiError((result['msg'], result['text']))
       else:
-        raise OrdrinError(result['msg'])
+        raise ApiError(result['msg'])
     return result
 
   def _get_asap_or_datetime(self, date_time):
