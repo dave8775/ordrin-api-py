@@ -38,21 +38,3 @@ class OrdrinApi(object):
       else:
         raise ApiError(result['msg'])
     return result
-
-  def _get_asap_or_datetime(self, date_time):
-    if date_time=='ASAP':
-      return 'ASAP'
-    else:
-      try:
-        return date_time.strftime('%m-%d+%H:%M')
-      except AttributeError:
-        raise TypeError("date_time must be a datetime.datetime object or the string 'ASAP'")
-
-  def _get_asap_or_date(self, date_time):
-    if date_time=='ASAP':
-      return ASAP
-    else:
-      try:
-        return date_time.strftime('%m-%d')
-      except AttributeError:
-        raise TypeError("date_time must be a datetime.datetime or datetime.date object or the string 'ASAP'")

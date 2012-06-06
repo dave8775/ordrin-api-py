@@ -5,9 +5,9 @@ class OrderAPI(OrdrinAPI):
 
   def _build_dict(self, restaurant_id, tray, tip, delivery_date_time, first_name, last_name, address, email, credit_card):
     data = {'restaurant_id':restaurant_id, 'tray':str(tray), 'tip':tip}
-    data['delivery_date'] = self._get_asap_or_date(delivery_date_time)
+    data['delivery_date'] = normalize(delivery_date_time, 'date')
     if data['delivery_date'] != 'ASAP':
-      data['delivery_time'] = delivery_date_time.strftime('%H:%M')
+      data['delivery_time'] = normalize(deliver_date_time, 'time')
     data['first_name'] = normalize(first_name, 'name')
     data['last_name'] = normalize(last_name, 'name')
     data.update(address.make_dict())

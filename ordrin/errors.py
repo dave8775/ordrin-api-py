@@ -44,3 +44,12 @@ def normalizer(value):
 
 def nick(value):
   return BadValueError("Nick names can only have letters, nubmers, dashes, and underscores: {}".format(value))
+
+def date_time(value):
+  return BadValueError("date_time must be a datetime.datetime object or the string 'ASAP': {}".format(value))
+
+def date(value):
+  return BadValueError("date must be a datetime.datetime or datetime.date object or the string 'ASAP': {}".format(value))
+
+def time(value):
+  return BadValueError("time must be a datetime.datetime or datetime.time object: {}".format(value))

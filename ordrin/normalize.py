@@ -22,6 +22,30 @@ def _normalize_money(money):
     return match.group(1)
   else:
     raise errors.money(money)
+  
+def _normalize_asap_or_datetime(self, date_time):
+  if date_time=='ASAP':
+    return 'ASAP'
+  else:
+    try:
+      return date_time.strftime('%m-%d+%H:%M')
+    except AttributeError:
+      raise errors.date_time(date_time)
+
+def _normalize_asap_or_date(self, date):
+  if date_time=='ASAP':
+    return ASAP
+  else:
+    try:
+      return date.strftime('%m-%d')
+    except AttributeError:
+      raise errors.date(date)
+
+def _normalize_time(self, time):
+  try:
+    return time.strftime('%H:%M')
+  except AttributeError:
+    raise errors.time(time)
 
 def _normalize_unchecked(value):
   return value
@@ -36,7 +60,10 @@ _normalizers = {'state': _normalize_regex(r'^[A-Za-z]{2}$', errors.state),
                 'cvc': _normalize_regex(r'^\d{3,4}$', errors.cvc),
                 'email': _normalize_regex(r'^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,3}', errors.email),
                 'nick': _normalize_regex(r'^[-\w]$', errors.nick),
-                'name': _normalize_unchecked}
+                'name': _normalize_unchecked,
+                'datetime': _normalize_asap_or_datetime,
+                'date': _normalize_asap_or_date,
+                'time': _normalize_time}
 
 def normalize(value, normaliezr_name):
   try:
