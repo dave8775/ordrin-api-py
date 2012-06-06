@@ -26,7 +26,8 @@ class Address(OrdrinData):
   fields = ('addr', 'city', 'state', 'zip', 'phone')
 
   def __init__(self, addr, city, state, zip, phone, addr2="", **kwargs):
-    """Store the parts of the address as fields in this object."""
+    """Store the parts of the address as fields in this object. Any additional keyword arguments
+    will be discarded."""
     _validate(state, r'^[A-Z]{2}$', "state must be a standard two letter postal code abbreviation")
     _validate(zip, r'^\d{5}(-\d{4})?$', "zip must be a 5 digit zip code with an optional 4 digit add-on code")
     _validate(phone, r'^\d{3}-\d{3}-\d{4}$', "phone must be of the form '###-###-####' where # is a digit")
@@ -41,7 +42,8 @@ class CreditCard(OrdrinData):
             'bill_addr', 'bill_addr2', 'bill_city', 'bill_state', 'bill_zip')
 
   def __init__(self, name, expiry_month, expiry_year, type, bill_address, number, cvc, **kwargs):
-    """Store the credit card info as fields in this object."""
+    """Store the credit card info as fields in this object. Any additional keyword arguments
+    will be discarded"""
     _validate(str(expiry_month), r'^\d{2}$', "expiry_month must be two digits")
     _validate(str(expiry_year), r'^\d{4}$', "expiry_yaer must be four digits")
     _validate(str(cvc), r'^\d{3,4}$', "cvc must be a 3 or 4 digit security code")
