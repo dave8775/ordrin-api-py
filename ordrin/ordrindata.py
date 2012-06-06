@@ -2,12 +2,19 @@
 to pass around non-builtin groups of data"""
 
 import inspect
-
-def _validate(value, regex, err_msg):
+_validators = {'state':(r'^[A-Z]{2}$', 'State error messag')}
+def _validate(value, validator_name):
   try:
-    return re.match(regex, value).group(0)
+    validator = _validators[validator_name]
+  except KeyError:
+    raise ValueError("Unknown validator: {}".format(validator_name))
+  try:
+    validator(value)
   except AttributeError:
-    raise ValueError(err_msg) 
+    try:
+      return re.match(regex, value).group(0)
+    except AttributeError:
+      raise ValueError(err_msg)
 
 class OrdrinData(object):
   """Base class for objects that can save any data with the constructor and then
@@ -15,10 +22,10 @@ class OrdrinData(object):
 
   def __init__(self, **kwargs):
     for k in kwargs:
-      self.__setattr__(k, kwargs[k])
+      setattr(self, k, kwargs[k])
 
   def make_dict(self):
-    return {f:self.__getattribute__(f) for f in self.fields}
+    return {f:getattr(self, f) for f in self.fields}
 
 class Address(OrdrinData):
   """Represents a street address."""
@@ -29,7 +36,7 @@ class Address(OrdrinData):
     """Store the parts of the address as fields in this object. Any additional keyword arguments
     will be discarded."""
     _validate(state, r'^[A-Z]{2}$', "state must be a standard two letter postal code abbreviation")
-    _validate(zip, r'^\d{5}(-\d{4})?$', "zip must be a 5 digit zip code with an optional 4 digit add-on code")
+    _validate(zip, r'^\d{5}$', "zip must be a 5 digit zip code with an optional 4 digit add-on code")
     _validate(phone, r'^\d{3}-\d{3}-\d{4}$', "phone must be of the form '###-###-####' where # is a digit")
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
