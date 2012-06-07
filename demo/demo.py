@@ -18,7 +18,7 @@ def print_docstring_header(f):
   def g(*args, **kwargs):
     print ''
     print f.__doc__
-    raw_input('Press enter to show')
+    raw_input('Press enter to execute and see the response')
     return f(*args, **kwargs)
   return g
 
@@ -55,6 +55,7 @@ credit_card_nick = 'cc1'
 email = 'demo+{}@ordr.in'.format(uuid.uuid1().hex)
 password = 'password'
 login = ordrin.data.UserLogin(email, password)
+alt_first_name = 'Example'
 
 #
 # Restaurant demo functions
@@ -119,6 +120,48 @@ def order_with_nicks_demo(restaurant_id, tray):
   """Order food as a logged in user using previously stored address and credit card"""
   tip = '$3.00'
   response = api.order.order(restaurant_id, tray, tip, 'ASAP', first_name, last_name, address_nick, credit_card_nick, login=login)
+  pprint(response)
+
+#
+# User demo functions
+#
+@print_docstring_header
+def get_user_demo():
+  """Get information about a user"""
+  user_info = get(login)
+  pprint(user_info)
+
+@print_docstring_header
+@print_api_errors
+def create_user_demo():
+  """Create a user"""
+  response = api.user.create(login, first_name, last_name)
+  pprint(response)
+
+@print_docstring_header
+@print_api_errors
+def update_user_demo():
+  """Update a user"""
+  response = api.user.update(login, alt_first_name, last_name)
+  pprint(response)
+
+@print_docstring_header
+def get_all_addresses_demo():
+  """Get a list of all saved addresses"""
+  address_list = api.user.get_all_addresses(login)
+  pprint(address_list)
+
+@print_docstring_header
+def get_address_demo():
+  """Get an address by nickname"""
+  addr = api.user.get_address(login, address_nick)
+  pprint(addr)
+
+@print_docstring_header
+@print_api_errors
+def set_addresss_demo():
+  """Save an address with a nickname"""
+  response = api.user.set_address(login, address_nick, address)
   pprint(response)
   
 #
