@@ -24,28 +24,17 @@ class OrdrinApi(object):
     method = normalize(method, 'method')
     uri = '/'+('/'.join(urllib.quote_plus(str(arg)) for arg in arguments))
     full_url = self.base_url+uri
-    #for debugging purposes only
-    print "requesting from:", full_url
     headers = {}
     if self.key:
       headers['X-NAAMA-CLIENT-AUTHENTICATION'] = 'id="{}", version="1"'.format(self.key)
     if login:
       hash_code = sha256(''.join((login.password, login.email, uri))).hexdigest()
       headers['X-NAAMA-AUTHENTICATION'] = 'username="{}", response="{}", version="1"'.format(login.email, hash_code)
-    #for debugging purposes only
-    print 'uri:', uri
-    print 'headers:', headers
-    print 'method:', method
-    print 'data:'
-    print json.dumps(data, sort_keys=True, indent=2)
     try:
       r = self._methods[method](full_url, data=data, headers=headers)
     except KeyError:
       raise error.request_method(method)
     r.raise_for_status()
-    #for debugging purposes only
-    print 'content:', repr(r.content), 'END CONTENT'
-    print r.text
     try:
       result = json.loads(r.text)
     except ValueError:
