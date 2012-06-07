@@ -120,10 +120,29 @@ def _cc_type(cc_number):
       return type    
   return None
 
+def _luhn_checksum(card_number):
+  """Taken from http://en.wikipedia.org/wiki/Luhn_algorithm"""
+    def digits_of(n):
+        return [int(d) for d in str(n)]
+    digits = digits_of(card_number)
+    odd_digits = digits[-1::-2]
+    even_digits = digits[-2::-2]
+    checksum = 0
+    checksum += sum(odd_digits)
+    for d in even_digits:
+        checksum += sum(digits_of(d*2))
+    return checksum % 10
+ 
+def _is_luhn_valid(card_number):
+  """Taken from http://en.wikipedia.org/wiki/Luhn_algorithm"""
+    return luhn_checksum(card_number) == 0
+
 def _normalize_credit_card((number, cvc)):
   number = str(number)
   #strips out everything but digits from the number
   number = ''.join(c for c in number if c in '0123456789')
+  if not _is_luhn_valid(number):
+    raise errors.credit_card(number)
   card_type = _cc_type(number)
   if card_type:
     if card_type=="American Express":
