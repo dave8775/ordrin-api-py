@@ -122,20 +122,20 @@ def _cc_type(cc_number):
 
 def _luhn_checksum(card_number):
   """Taken from http://en.wikipedia.org/wiki/Luhn_algorithm"""
-    def digits_of(n):
-        return [int(d) for d in str(n)]
-    digits = digits_of(card_number)
-    odd_digits = digits[-1::-2]
-    even_digits = digits[-2::-2]
-    checksum = 0
-    checksum += sum(odd_digits)
-    for d in even_digits:
-        checksum += sum(digits_of(d*2))
-    return checksum % 10
+  def digits_of(n):
+    return [int(d) for d in str(n)]
+  digits = digits_of(card_number)
+  odd_digits = digits[-1::-2]
+  even_digits = digits[-2::-2]
+  checksum = 0
+  checksum += sum(odd_digits)
+  for d in even_digits:
+    checksum += sum(digits_of(d*2))
+  return checksum % 10
  
 def _is_luhn_valid(card_number):
   """Taken from http://en.wikipedia.org/wiki/Luhn_algorithm"""
-    return luhn_checksum(card_number) == 0
+  return luhn_checksum(card_number) == 0
 
 def _normalize_credit_card((number, cvc)):
   number = str(number)
@@ -175,7 +175,7 @@ _normalizers = {'state': _normalize_state,
                 'url': _normalize_url,
                 'method': _normalize_method,
                 'alphanum': _normalize_regex(r'^[a-zA-Z\d]+$', errors.alphanum),
-                'credit_card': _normalise_credit_card}
+                'credit_card': _normalize_credit_card}
 
 def normalize(value, normalizer_name):
   try:
