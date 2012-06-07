@@ -63,5 +63,8 @@ def url(value):
 def method(value):
   return BadValueError("method must be a word: {}".format(value))
 
+def alphanum(value):
+  return BadValueError("This value must be alphanumeric: {}".format(value))
+
 def request_method(value):
   return ApiError("Method not a valid HTTP request method: {}".format(value))

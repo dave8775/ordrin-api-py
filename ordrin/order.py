@@ -1,5 +1,6 @@
 from ordrinapi import OrdrinApi
 from normalize import normalize
+from data import UserLogin
 
 class OrderApi(OrdrinApi):
 
@@ -10,7 +11,10 @@ class OrderApi(OrdrinApi):
       data['delivery_time'] = normalize(delivery_date_time, 'time')
     data['first_name'] = normalize(first_name, 'name')
     data['last_name'] = normalize(last_name, 'name')
-    data.update(address.make_dict())
+    try:
+      data.update(address.make_dict())
+    except AttributeError:
+      data['nick'] = normalize(address, 'nick')
     if not login:
       data['em'] = normalize(email, 'email')
     try:
@@ -26,7 +30,7 @@ class OrderApi(OrdrinApi):
 
   def order_create_user(self, restaurant_id, tray, tip, delivery_date_time, first_name, last_name, address, credit_card, email, password):
     data = self._build_dict(restaurant_id, tray, tip, delivery_date_time, first_name, last_name, address, credit_card, email)
-    data['password'] = UserLogin.hash_password(password)
-    return self._call_api('POST', ('o', restaurant_id), login=login, data=data)
+    data['pw'] = UserLogin.hash_password(password)
+    return self._call_api('POST', ('o', restaurant_id), data=data)
     
     

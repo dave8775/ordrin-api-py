@@ -92,7 +92,8 @@ _normalizers = {'state': _normalize_state,
                 'date': _normalize_asap_or_date,
                 'time': _normalize_time,
                 'url': _normalize_url,
-                'method': _normalize_method}
+                'method': _normalize_method,
+                'alphanum': _normalize_regex(r'^[a-zA-Z\d]+$', errors.alphanum)}
 
 def normalize(value, normalizer_name):
   try:
