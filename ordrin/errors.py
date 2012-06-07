@@ -37,7 +37,10 @@ def year(value):
   return BadValueError("Years must be four digits: {}".format(value))
 
 def cvc(value):
-  return BadValueError("Credit card CVC must be 3 or 4 digits: {}".format(value))
+  return BadValueError("Credit card CVC must be 3 or 4 digits, depending on the card type: {}".format(value))
+
+def credit_card(value):
+  return BadValueError("Credit card number must be a valid AmEx, Discover, Mastercard, or Visa card number: {}".format(value))
 
 def email(value):
   return BadValueError("Bad email format: {}".format(value))

@@ -39,12 +39,12 @@ class CreditCard(OrdrinData):
             'bill_addr', 'bill_addr2', 'bill_city', 'bill_state', 'bill_zip', 'phone',
             'name')
 
-  def __init__(self, name, expiry_month, expiry_year, type, bill_address, number, cvc, **kwargs):
+  def __init__(self, name, expiry_month, expiry_year, bill_address, number, cvc, **kwargs):
     """Store the credit card info as fields in this object. Any additional keyword arguments
     will be discarded"""
     expiry_month = normalize(expiry_month, 'month')
     expiry_year = normalize(expiry_year, 'year')
-    cvc = normalize(cvc, 'cvc')
+    number, cvc, self.type = normalize((number, cvc), 'credit_card')
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
     OrdrinData.__init__(self, **{k:values[k] for k in args if k!='self'})

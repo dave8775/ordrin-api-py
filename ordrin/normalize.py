@@ -74,6 +74,69 @@ def _normalize_state(state):
   else:
     raise errors.state(state)
 
+def _cc_type(cc_number):
+  """
+  Function determines type of CC by the given number. Taken from http://code.activestate.com/recipes/577815-determine-credit-card-type-by-number/
+  
+  WARNING:
+  Creditcard numbers used in tests are NOT valid credit card numbers.
+  You can't buy anything with these. They are random numbers that happen to
+  conform to the MOD 10 algorithm!
+  
+  >>> # Unable to determine CC type
+  >>> print _cc_type(1234567812345670)
+  None
+  
+  >>> # Test 16-Digit Visa
+  >>> print _cc_type(4716182333661786), _cc_type(4916979026116921), _cc_type(4532673384076298)
+  Visa Visa Visa
+  
+  >>> # Test 13-Digit Visa
+  >>> print _cc_type(4024007141696), _cc_type(4539490414748), _cc_type(4024007163179)
+  Visa Visa Visa
+  
+  >>> # Test Mastercard
+  >>> print _cc_type(5570735810881011), _cc_type(5354591576660665), _cc_type(5263178835431086)
+  Mastercard Mastercard Mastercard
+  
+  >>> # Test American Express
+  >>> print _cc_type(371576372960229), _cc_type(344986134771067), _cc_type(379061348437448)
+  American Express American Express American Express
+  
+  >>> # Test Discover
+  >>> print _cc_type(6011350169121566), _cc_type(6011006449605014), _cc_type(6011388903339458)
+  Discover Discover Discover
+  """
+  AMEX_CC_RE = re.compile(r"^3[47]\d{13}$")
+  VISA_CC_RE = re.compile(r"^4\d{12}(?:\d{3})?$")
+  MASTERCARD_CC_RE = re.compile(r"^5[1-5]\d{14}$")
+  DISCOVER_CC_RE = re.compile(r"^6(?:011|5\d{2})\d{12}$")
+  
+  CC_MAP = {"American Express": AMEX_CC_RE, "Visa": VISA_CC_RE,
+            "Mastercard": MASTERCARD_CC_RE, "Discover": DISCOVER_CC_RE}    
+  
+  for type, regexp in CC_MAP.items():
+    if regexp.match(str(cc_number)):
+      return type    
+  return None
+
+def _normalize_credit_card((number, cvc)):
+  number = str(number)
+  #strips out everything but digits from the number
+  number = ''.join(c for c in number if c in '0123456789')
+  card_type = _cc_type(number)
+  if card_type:
+    if card_type=="American Express":
+      cvc_len = 4
+    else:
+      cvc_len = 3
+    if re.match(r'^\d{%s}' % cvc_len, cvc):
+      return (number, cvc, card_type)
+    else:
+      raise errors.cvc(cvc)
+  else:
+    raise errors.credit_card(number)
+
 def _normalize_unchecked(value):
   return str(value)
 
@@ -84,7 +147,6 @@ _normalizers = {'state': _normalize_state,
                 'money': _normalize_money,
                 'year': _normalize_regex(r'^\d{4}$', errors.year),
                 'month': _normalize_regex(r'^\d{2}$', errors.month),
-                'cvc': _normalize_regex(r'^\d{3,4}$', errors.cvc),
                 'email': _normalize_regex(r'^[^@\s]+@[^@\s]+\.[a-zA-Z]{2,3}', errors.email),
                 'nick': _normalize_regex(r'^[-\w]+$', errors.nick),
                 'name': _normalize_unchecked,
@@ -93,7 +155,8 @@ _normalizers = {'state': _normalize_state,
                 'time': _normalize_time,
                 'url': _normalize_url,
                 'method': _normalize_method,
-                'alphanum': _normalize_regex(r'^[a-zA-Z\d]+$', errors.alphanum)}
+                'alphanum': _normalize_regex(r'^[a-zA-Z\d]+$', errors.alphanum),
+                'credit_card': _normalise_credit_card}
 
 def normalize(value, normalizer_name):
   try:
