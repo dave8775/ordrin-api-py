@@ -8,7 +8,7 @@ class ApiError(OrdrinError):
     self.text = text
     
   def __str__(self):
-    return "ApiError(msg={}, text={})".format(msg, text)
+    return "ApiError(msg='{}', text='{}')".format(msg, text)
 
 class ApiInvalidResponseError(OrdrinError):
   pass
