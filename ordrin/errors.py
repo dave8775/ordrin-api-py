@@ -6,6 +6,9 @@ class ApiError(OrdrinError):
   def __init__(self, msg=None, text=None):
     OrdrinError.__init__(self, msg)
     self.text = text
+    
+  def __str__(self):
+    return "ApiError(msg={}, text={})".format(msg, text)
 
 class ApiInvalidResponseError(OrdrinError):
   pass
