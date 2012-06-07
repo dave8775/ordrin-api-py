@@ -36,7 +36,8 @@ class CreditCard(OrdrinData):
   """Represents information about a credit card"""
 
   fields = ('number', 'cvc', 'expiry_month', 'expiry_year', 'expiry',
-            'bill_addr', 'bill_addr2', 'bill_city', 'bill_state', 'bill_zip')
+            'bill_addr', 'bill_addr2', 'bill_city', 'bill_state', 'bill_zip', 'phone',
+            'name')
 
   def __init__(self, name, expiry_month, expiry_year, type, bill_address, number, cvc, **kwargs):
     """Store the credit card info as fields in this object. Any additional keyword arguments
@@ -69,6 +70,10 @@ class CreditCard(OrdrinData):
     return self.bill_address.zip
 
   @property
+  def phone(self):
+    return self.bill_address.phone
+
+  @property
   def expiry(self):
     """A combination of the expiry_month and expiry_date"""
     return '{}/{}'.format(self.expiry_month, self.expiry_year)
@@ -92,12 +97,12 @@ class TrayItem(object):
   
   def __init__(self, item_id, quantity, *options):
     """Store the descriptors of an order item in this object."""
-    self.item_id = normalize(item_id, number)
-    self.quantity = normalize(quantity, number)
-    self.options = [normalize(option, number) for option in options]
+    self.item_id = normalize(item_id, 'number')
+    self.quantity = normalize(quantity, 'number')
+    self.options = [normalize(option, 'number') for option in options]
 
   def __str__(self):
-    return '{}/{},{}'.format(self.id, self.quantity, ','.join(str(opt) for opt in options))
+    return '{}/{},{}'.format(self.item_id, self.quantity, ','.join(str(opt) for opt in self.options))
 
 class Tray(object):
   """Represents a list of items in an order"""
@@ -108,4 +113,4 @@ class Tray(object):
     self.items = items
 
   def __str__(self):
-    return '+'.join(str(i) for i in items)
+    return '+'.join(str(i) for i in self.items)

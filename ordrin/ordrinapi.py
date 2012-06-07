@@ -36,6 +36,8 @@ class OrdrinApi(object):
     print 'uri:', uri
     print 'headers:', headers
     print 'method:', method
+    print 'data:'
+    print json.dumps(data, sort_keys=True, indent=2)
     try:
       r = self._methods[method](full_url, data=data, headers=headers)
     except KeyError:

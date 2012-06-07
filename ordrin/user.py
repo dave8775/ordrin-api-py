@@ -53,14 +53,14 @@ class UserApi(OrdrinApi):
     """Get a particular credit card for the given user."""
     return self._call_api('GET', ('u', login.email, 'ccs', normalize(card_nick, 'nick')), login=login)
 
-  def set_credit_card(self, login, card_nick, credit_card, phone):
+  def set_credit_card(self, login, card_nick, credit_card):
     """Set a particular credit card for the given user. Throws a relevant exception
     on failure"""
     card_nick = normalize(card_nick, 'nick')
     data = credit_card.make_dict()
     data.update(login.make_dict())
     data['nick'] = card_nick
-    data['phone'] = normalize(phone, 'phone')
+    data['phone'] = normalize(credit_card.phone, 'phone')
     return self._call_api('PUT', ('u', login.email, 'ccs', card_nick), login=login, data=data)
 
   def remove_credit_card(self, login, card_nick):

@@ -40,7 +40,7 @@ def cvc(value):
   return BadValueError("Credit card CVC must be 3 or 4 digits: {}".format(value))
 
 def email(value):
-  return BadvalueError("Bad email format: {}".format(value))
+  return BadValueError("Bad email format: {}".format(value))
 
 def normalizer(value):
   return BadValueError("Unknown validator name: {}".format(value))
