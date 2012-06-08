@@ -3,7 +3,8 @@ from normalize import normalize
 from data import UserLogin
 
 class UserApi(OrdrinApi):
-  """This class will be used to access the user API"""
+  """This class will be used to access the user API. All return values
+  are documented at http://ordr.in/developers/user"""
 
   def get(self, login):
     """Gets account information for the user associated with login

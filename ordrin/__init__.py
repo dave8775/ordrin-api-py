@@ -1,4 +1,5 @@
-"""This package is a python wrapper for the ordr.in API."""
+"""This package is a python wrapper for the ordr.in API. The main developer
+documentation for this API is located at http://ordr.in/developers"""
 import restaurant, user, order
 
 class APIs(object):

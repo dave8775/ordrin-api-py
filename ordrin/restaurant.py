@@ -2,7 +2,8 @@ from ordrinapi import OrdrinApi
 from normalize import normalize
 
 class RestaurantApi(OrdrinApi):
-  """This object's methods access the ordr.in restaurant API"""
+  """This object's methods access the ordr.in restaurant API. All return values
+  are documented at http://ordr.in/developers/restaurant"""
 
   def get_delivery_list(self, date_time, address):
     """Get a list of dicts representing restaurants that will deliver to the

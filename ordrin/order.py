@@ -3,7 +3,9 @@ from normalize import normalize
 from data import UserLogin
 
 class OrderApi(OrdrinApi):
-
+  """This class will be used to access the order API. All return values
+  are documented at http://ordr.in/developers/order"""
+  
   def _build_dict(self, restaurant_id, tray, tip, delivery_date_time, first_name, last_name, address, credit_card, email, login=None):
     """Put all of the data that needs to be passed to the POST request normalized into a dict."""
     data = {'restaurant_id':restaurant_id, 'tray':str(tray), 'tip':tip}
