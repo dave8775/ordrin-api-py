@@ -159,7 +159,7 @@ class UserApi(OrdrinApi):
 
     Arguments:
     login -- the user's current login information. Should be an ordrin.data.UserLogin object
-    new_password -- the new password
+    new_password -- the new password (in plain text)
     """
     data = {'email': login.email,
             'password': UserLogin.hash_password(new_password),
