@@ -15,6 +15,7 @@ class OrdrinData(object):
       setattr(self, k, kwargs[k])
 
   def make_dict(self):
+    """Return a dictionary of particular fields to values, determined per subclass"""
     return {f:getattr(self, f) for f in self.fields}
 
 class Address(OrdrinData):
@@ -24,7 +25,19 @@ class Address(OrdrinData):
 
   def __init__(self, addr, city, state, zip, phone, addr2="", **kwargs):
     """Store the parts of the address as fields in this object. Any additional keyword arguments
-    will be discarded."""
+    will be discarded.
+
+    Arguments:
+    addr -- Street address
+    city -- City
+    state -- State
+    zip -- Zip code
+    phone -- Phone number
+
+    Keyword Arguments:
+    addr2 -- Optional second street address line
+    
+    """
     state = normalize(state, 'state')
     zip = normalize(zip, 'zip')
     phone = normalize(phone, 'phone')
@@ -41,7 +54,17 @@ class CreditCard(OrdrinData):
 
   def __init__(self, name, expiry_month, expiry_year, bill_address, number, cvc, **kwargs):
     """Store the credit card info as fields in this object. Any additional keyword arguments
-    will be discarded"""
+    will be discarded
+
+    Arguments:
+    name -- The name (first and last) on the credit card
+    expiry_month -- The month that the card expires (two digits)
+    expiry_year -- The year that the card expires (four digits)
+    bill_address -- The billing address. Should be an ordrin.data.Address object
+    number -- The credit card number
+    cvc -- The card verification number
+
+    """
     expiry_month = normalize(expiry_month, 'month')
     expiry_year = normalize(expiry_year, 'year')
     number, cvc, self.type = normalize((number, cvc), 'credit_card')
@@ -79,12 +102,19 @@ class CreditCard(OrdrinData):
     return '{}/{}'.format(self.expiry_month, self.expiry_year)
 
 class UserLogin(OrdrinData):
+  """Represents a user's login information"""
 
   fields = ('email', 'password')
 
   def __init__(self, email, password):
     """Store the email and password in this object. Saves only the hash of the
-    password, not the password itself"""
+    password, not the password itself
+
+    Arguments:
+    email -- The user's email address
+    password -- The user's password (in plain text)
+
+    """
     self.email = normalize(email, 'email')
     self.password = UserLogin.hash_password(password)
 
@@ -96,7 +126,14 @@ class TrayItem(object):
   """Represents a single item in an order"""
   
   def __init__(self, item_id, quantity, *options):
-    """Store the descriptors of an order item in this object."""
+    """Store the descriptors of an order item in this object.
+
+    Arguments:
+    item_id -- the restaurants's numerial ID for the item
+    quantity -- the quantity
+    options -- any number of options to apply to the item
+
+    """
     self.item_id = normalize(item_id, 'number')
     self.quantity = normalize(quantity, 'number')
     self.options = [normalize(option, 'number') for option in options]
@@ -109,7 +146,10 @@ class Tray(object):
 
   def __init__(self, *items):
     """Store the list of items in this object. Each argument should be of type
-    Item"""
+    Item
+
+    Arguments:
+    items -- A list of items to be ordered in this tray"""
     self.items = items
 
   def __str__(self):
