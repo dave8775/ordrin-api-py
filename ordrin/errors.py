@@ -1,8 +1,10 @@
 class OrdrinError(Exception):
+  """This is the base class for errors specific to this ordrin package"""
   def __init__(self, msg=None):
     self.msg = msg
 
 class ApiError(OrdrinError):
+  """This error encapsulates an API error returned by the server."""
   def __init__(self, msg=None, text=None):
     OrdrinError.__init__(self, msg)
     self.text = text
@@ -11,9 +13,13 @@ class ApiError(OrdrinError):
     return "ApiError(msg='{}', text='{}')".format(self.msg, self.text)
 
 class ApiInvalidResponseError(OrdrinError):
-  pass
+  """This error indicates that the server returned a response that could not be
+  parsed into JSON"""
+  def __str__(self):
+    return "ApiInvalidResponseError(msg='{}')".format(self.msg)
 
 class BadValueError(OrdrinError, ValueError):
+  """This error indicates that a bad value was passed into some API call"""
   def __init__(self, msg):
     OrdrinError.__init__(self, msg)
     ValueError.__init__(self, msg)
