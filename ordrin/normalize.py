@@ -135,7 +135,7 @@ def _luhn_checksum(card_number):
  
 def _is_luhn_valid(card_number):
   """Taken from http://en.wikipedia.org/wiki/Luhn_algorithm"""
-  return luhn_checksum(card_number) == 0
+  return _luhn_checksum(card_number) == 0
 
 def _normalize_credit_card((number, cvc)):
   number = str(number)

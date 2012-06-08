@@ -1,5 +1,6 @@
 from ordrinapi import OrdrinApi
 from normalize import normalize
+from data import UserLogin
 
 class UserApi(OrdrinApi):
   """This class will be used to access the user API"""
