@@ -15,7 +15,8 @@ ordrin.data.UserLogin(email, password)
 
 ordrin.data.TrayItem(item_id, quantity, *options)
 
-ordrin.data.Tray(*items)```
+ordrin.data.Tray(*items)
+```
 
 Exceptions
 ----------
@@ -25,7 +26,8 @@ ordrin.errors.ApiError(msg, text)
 
 ordrin.errors.ApiInvalidResponseError(msg)
 
-ordrin.errors.BadValueError(msg)```
+ordrin.errors.BadValueError(msg)
+```
 
 API Initialization
 ------------------
@@ -44,7 +46,8 @@ api.restaurant.get_delivery_check(retaurant_id, date_time, address)
 
 api.restaurant.get_fee(restaurant_id, subtotal, tip, date_time, address)
 
-api.restaurant.get_details(restaurant_id)```
+api.restaurant.get_details(restaurant_id)
+```
 
 User API Functions
 ------------------
@@ -76,7 +79,8 @@ api.user.get_order_history(login)
 
 api.user.get_order_detail(login, order_id)
 
-api.user.set_password(login, new_password)```
+api.user.set_password(login, new_password)
+```
 
 Order API Functions
 -------------------
@@ -84,4 +88,5 @@ Order API Functions
 ```python
 api.order.order(restaurant_id, tray, tip, delivery_date_time, first_name, last_name, address, credit_card, email=None, login=None)
 
-order_create_user(restaurant_id, tray, tip, delivery_date_time, first_name, last_name, address, credit_card, email, password)```
+order_create_user(restaurant_id, tray, tip, delivery_date_time, first_name, last_name, address, credit_card, email, password)
+```
