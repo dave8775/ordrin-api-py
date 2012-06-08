@@ -3,6 +3,8 @@ Ordr.in Python API
 
 A Python wrapper for the Restaurant, User, and Order APIs provided by Ordr.in. Everything mentioned here is described in more detail in the documentation in the python modules. The main API documentation can be found at http://ordr.in/developers.
 
+The demo script (`demo/demo.py`) has examples of calling every function and initializing all of the data structures.
+
 Data Structures
 ---------------
 
@@ -38,6 +40,7 @@ api = ordrin.APIs(developer_key, restaurant_url, user_url, order_url)
 
 Restaurant API Functions
 ------------------------
+All of these functions are in the `ordrin.restaurant` module.
 
 ```python
 api.restaurant.get_delivery_list(date_time, address)
@@ -51,6 +54,7 @@ api.restaurant.get_details(restaurant_id)
 
 User API Functions
 ------------------
+All of these functions are in the `ordrin.user` module.
 
 ```python
 api.user.get(login)
@@ -84,6 +88,7 @@ api.user.set_password(login, new_password)
 
 Order API Functions
 -------------------
+All of these functions are in the `ordrin.order` module.
 
 ```python
 api.order.order(restaurant_id, tray, tip, delivery_date_time, first_name, last_name, address, credit_card, email=None, login=None)
