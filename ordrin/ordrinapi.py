@@ -11,7 +11,13 @@ class OrdrinApi(object):
   """A base object for calling one part of the ordr.in API"""
 
   def __init__(self, key, base_url):
-    """Save the url and key parameters in the object"""
+    """Save the url and key parameters in the object
+
+    Arguments:
+    key -- The developer's API key
+    base_url -- the url that all API call urls will expand from
+
+    """
     self.base_url = normalize(base_url, 'url')
     #As far as I can tell, there is no good test for an invalid key
     self.key = key
