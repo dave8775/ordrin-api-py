@@ -5,6 +5,7 @@ setup(
   name="ordrin",
   version='0.1.1',
   packages=['ordrin', 'ordrindemo'],
+  py_modules=['distutils_setup'],
   description="Ordr.in API Client",
   author="Ordr.in",
   author_email="tech@ordr.in",
