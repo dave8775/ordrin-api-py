@@ -3,9 +3,9 @@ distribute_setup.use_setuptools()
 from setuptools import setup
 setup(
   name="ordrin",
-  version='0.1.2',
+  version='0.1.3',
   packages=['ordrin', 'ordrindemo'],
-  py_modules=['distutils_setup'],
+  py_modules=['distribute_setup'],
   description="Ordr.in API Client",
   author="Ordr.in",
   author_email="tech@ordr.in",
