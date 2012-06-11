@@ -37,12 +37,9 @@ def print_api_errors(f):
 #
 # Global Variables
 #
-test_urls = {'restaurant_url': 'https://r-test.ordr.in/',
-       'user_url': 'https://u-test.ordr.in/',
-       'order_url': 'https://o-test.ordr.in/'}
 api_key = raw_input("Please input your API key: ")
 
-api = ordrin.APIs(api_key, **test_urls) # Create an API object
+api = ordrin.APIs(api_key, ordrin.TEST) # Create an API object
 
 # Create an Address object
 address = ordrin.data.Address('1 Main Street', 'College Station', 'TX', '77840', '(555) 555-5555')
