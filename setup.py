@@ -4,7 +4,7 @@ from setuptools import setup
 setup(
   name="ordrin",
   version='0.1',
-  packages=['ordrin']
+  packages=['ordrin', 'ordrindemo'],
   description="Ordr.in API Client",
   author="Ordr.in",
   author_email="tech@ordr.in",
@@ -18,4 +18,4 @@ setup(
     "Development Status :: 4 - Beta",
     "Topic :: Software Development",
     "Topic :: Internet"],
-  scripts=('demo/demo.py',))
+  scripts=('ordrindemo/demo.py',))
