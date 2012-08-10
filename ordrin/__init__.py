@@ -29,7 +29,7 @@ class APIs(object):
       if restaurant_url or user_url or order_url:
         raise ValueError("Individual URL parameters can only be set if servers is set to CUSTOM")
     if servers==PRODUCTION:
-      retaurant_url = "https://r.ordr.in/"
+      restaurant_url = "https://r.ordr.in/"
       user_url = "https://u.ordr.in/"
       order_url = "https://o.ordr.in/"
     elif servers==TEST:

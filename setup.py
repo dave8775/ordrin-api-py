@@ -3,7 +3,7 @@ distribute_setup.use_setuptools()
 from setuptools import setup
 setup(
   name="ordrin",
-  version='0.1.5',
+  version='0.1.6',
   packages=['ordrin', 'ordrindemo'],
   py_modules=['distribute_setup'],
   description="Ordr.in API Client",
