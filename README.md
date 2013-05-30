@@ -3,6 +3,8 @@ Ordr.in Python API
 
 A Python wrapper for the Restaurant, User, and Order APIs provided by Ordr.in. Everything mentioned here is described in more detail in the documentation in the python modules. The main API documentation can be found at http://ordr.in/developers.
 
+NOTE: This package only works with Python 2.7.
+
 The demo script (`ordrindemo/demo.py`) has examples of calling every function and initializing all of the data structures.
 
 Data Structures
