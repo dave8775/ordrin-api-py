@@ -56,8 +56,9 @@ class APIs(object):
     return self.helper._call_endpoint('order', 'order_guest', ["rid"], rid=rid, em=em, tip=tip, first_name=first_name, last_name=last_name, phone=phone, zip=zip, addr=addr, city=city, state=state, card_number=card_number, card_cvc=card_cvc, card_expiry=card_expiry, card_bill_addr=card_bill_addr, card_bill_city=card_bill_city, card_bill_state=card_bill_state, card_bill_zip=card_bill_zip, card_bill_phone=card_bill_phone, tray=tray, addr2=addr2, card_name=card_name, card_bill_addr2=card_bill_addr2, delivery_date=delivery_date, delivery_time=delivery_time)
   
   
-  def order_user(self, tip, first_name, last_name, email, current_password, rid=None, tray=None, phone=None, zip=None, addr=None, addr2=None, city=None, state=None, nick=None, card_name=None, card_number=None, card_cvc=None, card_expiry=None, card_bill_addr=None, card_bill_addr2=None, card_bill_city=None, card_bill_state=None, card_bill_zip=None, card_bill_phone=None, card_nick=None, delivery_date=None, delivery_time=None):
+  def order_user(self, rid, tip, first_name, last_name, email, current_password, tray=None, phone=None, zip=None, addr=None, addr2=None, city=None, state=None, nick=None, card_name=None, card_number=None, card_cvc=None, card_expiry=None, card_bill_addr=None, card_bill_addr2=None, card_bill_city=None, card_bill_state=None, card_bill_zip=None, card_bill_phone=None, card_nick=None, delivery_date=None, delivery_time=None):
     """Arguments:
+    rid--Ordr.in's unique restaurant identifier for the restaurant.
     tip--Tip amount in dollars and cents
     first_name--The customer's first name
     last_name--The customer's last name
@@ -65,7 +66,6 @@ class APIs(object):
     current_password -- The user's current password
 
     Keyword Arguments:
-    rid--Ordr.in's unique restaurant identifier for the restaurant.
     tray--Represents a tray of menu items in the format '[menu item id]/[qty],[option id],...,[option id]'
 
 
@@ -96,7 +96,7 @@ class APIs(object):
     delivery_time--Delivery time
     OR
     delivery_date--Delivery date"""
-    return self.helper._call_endpoint('order', 'order_user', ["rid"], tip=tip, first_name=first_name, last_name=last_name, email=email, current_password=current_password, rid=rid, tray=tray, phone=phone, zip=zip, addr=addr, addr2=addr2, city=city, state=state, nick=nick, card_name=card_name, card_number=card_number, card_cvc=card_cvc, card_expiry=card_expiry, card_bill_addr=card_bill_addr, card_bill_addr2=card_bill_addr2, card_bill_city=card_bill_city, card_bill_state=card_bill_state, card_bill_zip=card_bill_zip, card_bill_phone=card_bill_phone, card_nick=card_nick, delivery_date=delivery_date, delivery_time=delivery_time)
+    return self.helper._call_endpoint('order', 'order_user', ["rid"], rid=rid, tip=tip, first_name=first_name, last_name=last_name, email=email, current_password=current_password, tray=tray, phone=phone, zip=zip, addr=addr, addr2=addr2, city=city, state=state, nick=nick, card_name=card_name, card_number=card_number, card_cvc=card_cvc, card_expiry=card_expiry, card_bill_addr=card_bill_addr, card_bill_addr2=card_bill_addr2, card_bill_city=card_bill_city, card_bill_state=card_bill_state, card_bill_zip=card_bill_zip, card_bill_phone=card_bill_phone, card_nick=card_nick, delivery_date=delivery_date, delivery_time=delivery_time)
   
   #restaurant endpoints
   

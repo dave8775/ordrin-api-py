@@ -118,7 +118,7 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 
 #### User Order
 
-    ordrin_api.order_user(tip, first_name, last_name, email, current_password, rid=None, tray=None, phone=None, zip=None, addr=None, addr2=None, city=None, state=None, nick=None, card_name=None, card_number=None, card_cvc=None, card_expiry=None, card_bill_addr=None, card_bill_addr2=None, card_bill_city=None, card_bill_state=None, card_bill_zip=None, card_bill_phone=None, card_nick=None, delivery_date=None, delivery_time=None)
+    ordrin_api.order_user(rid, tip, first_name, last_name, email, current_password, tray=None, phone=None, zip=None, addr=None, addr2=None, city=None, state=None, nick=None, card_name=None, card_number=None, card_cvc=None, card_expiry=None, card_bill_addr=None, card_bill_addr2=None, card_bill_city=None, card_bill_state=None, card_bill_zip=None, card_bill_phone=None, card_nick=None, delivery_date=None, delivery_time=None)
 
 ##### Arguments
 
