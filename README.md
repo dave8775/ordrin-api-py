@@ -10,29 +10,29 @@ See full API documentation at http://hackfood.ordr.in
    - [Initialization](#initialization)
    
    - [Order Endpoints](#order)
-     - [Guest Order](#guest-order)
-     - [User Order](#user-order)
+     - [Guest Order](#guest-order) (`order_guest`)
+     - [User Order](#user-order) (`order_user`)
      
    - [Restaurant Endpoints](#restaurant)
-     - [Delivery Check](#delivery-check)
-     - [Delivery List](#delivery-list)
-     - [Fee](#fee)
-     - [Restaurant Details](#restaurant-details)
+     - [Delivery Check](#delivery-check) (`delivery_check`)
+     - [Delivery List](#delivery-list) (`delivery_list`)
+     - [Fee](#fee) (`fee`)
+     - [Restaurant Details](#restaurant-details) (`restaurant_details`)
      
    - [User Endpoints](#user)
-     - [Change Password](#change-password)
-     - [Create Account](#create-account)
-     - [Create Address](#create-address)
-     - [Create Credit Card](#create-credit-card)
-     - [Remove address](#remove-address)
-     - [Remove Credit Card](#remove-credit-card)
-     - [Get Account Information](#get-account-information)
-     - [Get All Saved Addresses](#get-all-saved-addresses)
-     - [Get all saved credit cards](#get-all-saved-credit-cards)
-     - [Get an Order](#get-an-order)
-     - [Get Order History](#get-order-history)
-     - [Get a single saved address](#get-a-single-saved-address)
-     - [Get a single saved credit card](#get-a-single-saved-credit-card)
+     - [Change Password](#change-password) (`change_password`)
+     - [Create Account](#create-account) (`create_account`)
+     - [Create Address](#create-address) (`create_addr`)
+     - [Create Credit Card](#create-credit-card) (`create_cc`)
+     - [Remove address](#remove-address) (`delete_addr`)
+     - [Remove Credit Card](#remove-credit-card) (`delete_cc`)
+     - [Get Account Information](#get-account-information) (`get_account_info`)
+     - [Get All Saved Addresses](#get-all-saved-addresses) (`get_all_saved_addrs`)
+     - [Get all saved credit cards](#get-all-saved-credit-cards) (`get_all_saved_ccs`)
+     - [Get an Order](#get-an-order) (`get_order`)
+     - [Get Order History](#get-order-history) (`get_order_history`)
+     - [Get a single saved address](#get-a-single-saved-address) (`get_saved_addr`)
+     - [Get a single saved credit card](#get-a-single-saved-credit-card) (`get_saved_cc`)
      
 
 ## Installation
@@ -55,9 +55,9 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 (defaults to `ordrin.TEST`).
 
 
-### Order Endpoints
+### Order Endpoints ([API Reference](http://hackfood.ordr.in/docs/order))
 
-#### Guest Order
+#### Guest Order ([API Reference](http://hackfood.ordr.in/docs/order#order_guest))
 
     ordrin.order_guest(rid, em, tray, tip, first_name, last_name, phone, zip, addr, city, state, card_number, card_cvc, card_expiry, card_bill_addr, card_bill_city, card_bill_state, card_bill_zip, card_bill_phone, addr2=None, card_name=None, card_bill_addr2=None, delivery_date=None, delivery_time=None)
 
@@ -95,7 +95,7 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 
 
 
-#### User Order
+#### User Order ([API Reference](http://hackfood.ordr.in/docs/order#order_user))
 
     ordrin.order_user(rid, tray, tip, first_name, last_name, email, current_password, phone=None, zip=None, addr=None, addr2=None, city=None, state=None, nick=None, card_name=None, card_number=None, card_cvc=None, card_expiry=None, card_bill_addr=None, card_bill_addr2=None, card_bill_city=None, card_bill_state=None, card_bill_zip=None, card_bill_phone=None, card_nick=None, delivery_date=None, delivery_time=None)
 
@@ -148,9 +148,9 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 
 
 
-### Restaurant Endpoints
+### Restaurant Endpoints ([API Reference](http://hackfood.ordr.in/docs/restaurant))
 
-#### Delivery Check
+#### Delivery Check ([API Reference](http://hackfood.ordr.in/docs/restaurant#delivery_check))
 
     ordrin.delivery_check(datetime, rid, addr, city, zip)
 
@@ -162,7 +162,7 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 - `zip` : The zip code part of the address
 
 
-#### Delivery List
+#### Delivery List ([API Reference](http://hackfood.ordr.in/docs/restaurant#delivery_list))
 
     ordrin.delivery_list(datetime, addr, city, zip)
 
@@ -173,7 +173,7 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 - `zip` : The zip code part of the address
 
 
-#### Fee
+#### Fee ([API Reference](http://hackfood.ordr.in/docs/restaurant#fee))
 
     ordrin.fee(datetime, rid, subtotal, tip, addr, city, zip)
 
@@ -187,7 +187,7 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 - `zip` : The zip code part of the address
 
 
-#### Restaurant Details
+#### Restaurant Details ([API Reference](http://hackfood.ordr.in/docs/restaurant#restaurant_details))
 
     ordrin.restaurant_details(rid)
 
@@ -196,19 +196,18 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 
 
 
-### User Endpoints
+### User Endpoints ([API Reference](http://hackfood.ordr.in/docs/user))
 
-#### Change Password
+#### Change Password ([API Reference](http://hackfood.ordr.in/docs/user#change_password))
 
     ordrin.change_password(email, password, current_password)
 
 ##### Arguments
 - `email` : The user's email address
 - `password` : The user's new password
-- `email` : The user's email address
 - `current_password` : The user's current password
 
-#### Create Account
+#### Create Account ([API Reference](http://hackfood.ordr.in/docs/user#create_account))
 
     ordrin.create_account(email, pw, first_name, last_name)
 
@@ -219,7 +218,7 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 - `last_name` : The user's last name
 
 
-#### Create Address
+#### Create Address ([API Reference](http://hackfood.ordr.in/docs/user#create_addr))
 
     ordrin.create_addr(email, nick, phone, zip, addr, city, state, current_password, addr2=None)
 
@@ -232,10 +231,9 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 - `addr2` : The second part of the street address, if needed
 - `city` : The city part of the address
 - `state` : The state part of the address
-- `email` : The user's email address
 - `current_password` : The user's current password
 
-#### Create Credit Card
+#### Create Credit Card ([API Reference](http://hackfood.ordr.in/docs/user#create_cc))
 
     ordrin.create_cc(email, nick, card_number, card_cvc, card_expiry, bill_addr, bill_city, bill_state, bill_zip, bill_phone, current_password, bill_addr2=None)
 
@@ -251,92 +249,82 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 - `bill_state` : The credit card's billing state
 - `bill_zip` : The credit card's billing zip code
 - `bill_phone` : The credit card's billing phone number
-- `email` : The user's email address
 - `current_password` : The user's current password
 
-#### Remove address
+#### Remove address ([API Reference](http://hackfood.ordr.in/docs/user#delete_addr))
 
     ordrin.delete_addr(email, nick, current_password)
 
 ##### Arguments
 - `email` : The user's email address
 - `nick` : The nickname of this address
-- `email` : The user's email address
 - `current_password` : The user's current password
 
-#### Remove Credit Card
+#### Remove Credit Card ([API Reference](http://hackfood.ordr.in/docs/user#delete_cc))
 
     ordrin.delete_cc(email, nick, current_password)
 
 ##### Arguments
 - `email` : The user's email address
 - `nick` : The nickname of this address
-- `email` : The user's email address
 - `current_password` : The user's current password
 
-#### Get Account Information
+#### Get Account Information ([API Reference](http://hackfood.ordr.in/docs/user#get_account_info))
 
     ordrin.get_account_info(email, current_password)
 
 ##### Arguments
 - `email` : The user's email address
-- `email` : The user's email address
 - `current_password` : The user's current password
 
-#### Get All Saved Addresses
+#### Get All Saved Addresses ([API Reference](http://hackfood.ordr.in/docs/user#get_all_saved_addrs))
 
     ordrin.get_all_saved_addrs(email, current_password)
 
 ##### Arguments
 - `email` : The user's email address
-- `email` : The user's email address
 - `current_password` : The user's current password
 
-#### Get all saved credit cards
+#### Get all saved credit cards ([API Reference](http://hackfood.ordr.in/docs/user#get_all_saved_ccs))
 
     ordrin.get_all_saved_ccs(email, current_password)
 
 ##### Arguments
 - `email` : The user's email address
-- `email` : The user's email address
 - `current_password` : The user's current password
 
-#### Get an Order
+#### Get an Order ([API Reference](http://hackfood.ordr.in/docs/user#get_order))
 
     ordrin.get_order(email, oid, current_password)
 
 ##### Arguments
 - `email` : The user's email address
 - `oid` : Ordr.in's unique order id number.
-- `email` : The user's email address
 - `current_password` : The user's current password
 
-#### Get Order History
+#### Get Order History ([API Reference](http://hackfood.ordr.in/docs/user#get_order_history))
 
     ordrin.get_order_history(email, current_password)
 
 ##### Arguments
 - `email` : The user's email address
-- `email` : The user's email address
 - `current_password` : The user's current password
 
-#### Get a single saved address
+#### Get a single saved address ([API Reference](http://hackfood.ordr.in/docs/user#get_saved_addr))
 
     ordrin.get_saved_addr(email, nick, current_password)
 
 ##### Arguments
 - `email` : The user's email address
 - `nick` : The nickname of this address
-- `email` : The user's email address
 - `current_password` : The user's current password
 
-#### Get a single saved credit card
+#### Get a single saved credit card ([API Reference](http://hackfood.ordr.in/docs/user#get_saved_cc))
 
     ordrin.get_saved_cc(email, nick, current_password)
 
 ##### Arguments
 - `email` : The user's email address
 - `nick` : The nickname of this address
-- `email` : The user's email address
 - `current_password` : The user's current password
 
