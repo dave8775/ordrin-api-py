@@ -62,36 +62,36 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
     ordrin.order_guest(rid, em, tray, tip, first_name, last_name, phone, zip, addr, city, state, card_number, card_cvc, card_expiry, card_bill_addr, card_bill_city, card_bill_state, card_bill_zip, card_bill_phone, addr2=None, card_name=None, card_bill_addr2=None, delivery_date=None, delivery_time=None)
 
 ##### Arguments
-- `rid` : Ordr.in's unique restaurant identifier for the restaurant.
+- `rid` : Ordr.in's unique restaurant identifier for the restaurant. (A number)
 - `em` : The customer's email address
 - `tray` : Represents a tray of menu items in the format '[menu item id]/[qty],[option id],...,[option id]'
 - `tip` : Tip amount in dollars and cents
 - `first_name` : The customer's first name
 - `last_name` : The customer's last name
 - `phone` : The customer's phone number
-- `zip` : The zip code part of the address
+- `zip` : The zip code part of the address (5 digits)
 - `addr` : The street address
 - `addr2` : The second part of the street address, if needed
 - `city` : The city part of the address
-- `state` : The state part of the address
+- `state` : The state part of the address (Two letters)
 - `card_name` : Full name as it appears on the credit card
-- `card_number` : Credit card number
-- `card_cvc` : 3 or 4 digit security code
-- `card_expiry` : The credit card expiration date.
+- `card_number` : Credit card number (16 digits)
+- `card_cvc` : 3 or 4 digit security code (3 or 4 digits)
+- `card_expiry` : The credit card expiration date. (mm/yyyy)
 - `card_bill_addr` : The credit card's billing street address
 - `card_bill_addr2` : The second part of the credit card's biling street address.
 - `card_bill_city` : The credit card's billing city
-- `card_bill_state` : The credit card's billing state
-- `card_bill_zip` : The credit card's billing zip code
+- `card_bill_state` : The credit card's billing state (2 letters)
+- `card_bill_zip` : The credit card's billing zip code (5 digits)
 - `card_bill_phone` : The credit card's billing phone number
 
 
 ###### Either
-- `delivery_date` : Delivery date
-- `delivery_time` : Delivery time
+- `delivery_date` : Delivery date (mm-dd)
+- `delivery_time` : Delivery time (HH:MM)
 
 ###### Or
-- `delivery_date` : Delivery date
+- `delivery_date` : Delivery date (ASAP)
 
 
 
@@ -100,7 +100,7 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
     ordrin.order_user(rid, tray, tip, first_name, last_name, email, current_password, phone=None, zip=None, addr=None, addr2=None, city=None, state=None, nick=None, card_name=None, card_number=None, card_cvc=None, card_expiry=None, card_bill_addr=None, card_bill_addr2=None, card_bill_city=None, card_bill_state=None, card_bill_zip=None, card_bill_phone=None, card_nick=None, delivery_date=None, delivery_time=None)
 
 ##### Arguments
-- `rid` : Ordr.in's unique restaurant identifier for the restaurant.
+- `rid` : Ordr.in's unique restaurant identifier for the restaurant. (A number)
 - `tray` : Represents a tray of menu items in the format '[menu item id]/[qty],[option id],...,[option id]'
 - `tip` : Tip amount in dollars and cents
 - `first_name` : The customer's first name
@@ -110,11 +110,11 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 
 ###### Either
 - `phone` : The customer's phone number
-- `zip` : The zip code part of the address
+- `zip` : The zip code part of the address (5 digits)
 - `addr` : The street address
 - `addr2` : The second part of the street address, if needed
 - `city` : The city part of the address
-- `state` : The state part of the address
+- `state` : The state part of the address (Two letters)
 
 ###### Or
 - `nick` : The delivery location nickname. (From the user's addresses)
@@ -123,14 +123,14 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 
 ###### Either
 - `card_name` : Full name as it appears on the credit card
-- `card_number` : Credit card number
-- `card_cvc` : 3 or 4 digit security code
-- `card_expiry` : The credit card expiration date.
+- `card_number` : Credit card number (16 digits)
+- `card_cvc` : 3 or 4 digit security code (3 or 4 digits)
+- `card_expiry` : The credit card expiration date. (mm/yyyy)
 - `card_bill_addr` : The credit card's billing street address
 - `card_bill_addr2` : The second part of the credit card's biling street address.
 - `card_bill_city` : The credit card's billing city
-- `card_bill_state` : The credit card's billing state
-- `card_bill_zip` : The credit card's billing zip code
+- `card_bill_state` : The credit card's billing state (2 letters)
+- `card_bill_zip` : The credit card's billing zip code (5 digits)
 - `card_bill_phone` : The credit card's billing phone number
 
 ###### Or
@@ -139,11 +139,11 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 
 
 ###### Either
-- `delivery_date` : Delivery date
-- `delivery_time` : Delivery time
+- `delivery_date` : Delivery date (mm-dd)
+- `delivery_time` : Delivery time (HH:MM)
 
 ###### Or
-- `delivery_date` : Delivery date
+- `delivery_date` : Delivery date (ASAP)
 
 
 
@@ -155,11 +155,11 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
     ordrin.delivery_check(datetime, rid, addr, city, zip)
 
 ##### Arguments
-- `datetime` : Delivery date and time
-- `rid` : Ordr.in's unique restaurant identifier for the restaurant.
+- `datetime` : Delivery date and time (ASAP or mm-dd+HH:MM)
+- `rid` : Ordr.in's unique restaurant identifier for the restaurant. (A number)
 - `addr` : Delivery location street address
 - `city` : Delivery location city
-- `zip` : The zip code part of the address
+- `zip` : The zip code part of the address (5 digits)
 
 
 #### Delivery List ([API Reference](http://hackfood.ordr.in/docs/restaurant#delivery_list))
@@ -167,10 +167,10 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
     ordrin.delivery_list(datetime, addr, city, zip)
 
 ##### Arguments
-- `datetime` : Delivery date and time
+- `datetime` : Delivery date and time (ASAP or mm-dd+HH:MM)
 - `addr` : Delivery location street address
 - `city` : Delivery location city
-- `zip` : The zip code part of the address
+- `zip` : The zip code part of the address (5 digits)
 
 
 #### Fee ([API Reference](http://hackfood.ordr.in/docs/restaurant#fee))
@@ -178,13 +178,13 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
     ordrin.fee(datetime, rid, subtotal, tip, addr, city, zip)
 
 ##### Arguments
-- `datetime` : Delivery date and time
-- `rid` : Ordr.in's unique restaurant identifier for the restaurant.
+- `datetime` : Delivery date and time (ASAP or mm-dd+HH:MM)
+- `rid` : Ordr.in's unique restaurant identifier for the restaurant. (A number)
 - `subtotal` : The cost of all items in the tray in dollars and cents.
 - `tip` : The tip in dollars and cents.
 - `addr` : Delivery location street address
 - `city` : Delivery location city
-- `zip` : The zip code part of the address
+- `zip` : The zip code part of the address (5 digits)
 
 
 #### Restaurant Details ([API Reference](http://hackfood.ordr.in/docs/restaurant#restaurant_details))
@@ -192,7 +192,7 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
     ordrin.restaurant_details(rid)
 
 ##### Arguments
-- `rid` : Ordr.in's unique restaurant identifier for the restaurant.
+- `rid` : Ordr.in's unique restaurant identifier for the restaurant. (A number)
 
 
 
@@ -204,7 +204,7 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 
 ##### Arguments
 - `email` : The user's email address
-- `password` : The user's new password
+- `password` : The user's new password (SHA256 hex encoded)
 - `current_password` : The user's current password
 
 #### Create Account ([API Reference](http://hackfood.ordr.in/docs/user#create_account))
@@ -226,11 +226,11 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 - `email` : The user's email address
 - `nick` : The nickname of this address
 - `phone` : The customer's phone number
-- `zip` : The zip code part of the address
+- `zip` : The zip code part of the address (5 digits)
 - `addr` : The street address
 - `addr2` : The second part of the street address, if needed
 - `city` : The city part of the address
-- `state` : The state part of the address
+- `state` : The state part of the address (Two letters)
 - `current_password` : The user's current password
 
 #### Create Credit Card ([API Reference](http://hackfood.ordr.in/docs/user#create_cc))
@@ -240,14 +240,14 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 ##### Arguments
 - `email` : The user's email address
 - `nick` : The nickname of this address
-- `card_number` : Credit card number
-- `card_cvc` : 3 or 4 digit security code
-- `card_expiry` : The credit card expiration date.
+- `card_number` : Credit card number (16 digits)
+- `card_cvc` : 3 or 4 digit security code (3 or 4 digits)
+- `card_expiry` : The credit card expiration date. (Two digits/Four digits)
 - `bill_addr` : The credit card's billing street address
 - `bill_addr2` : The second part of the credit card's biling street address.
 - `bill_city` : The credit card's billing city
-- `bill_state` : The credit card's billing state
-- `bill_zip` : The credit card's billing zip code
+- `bill_state` : The credit card's billing state (2 letters)
+- `bill_zip` : The credit card's billing zip code (5 digits)
 - `bill_phone` : The credit card's billing phone number
 - `current_password` : The user's current password
 
@@ -299,7 +299,7 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 
 ##### Arguments
 - `email` : The user's email address
-- `oid` : Ordr.in's unique order id number.
+- `oid` : Ordr.in's unique order id number. (A number)
 - `current_password` : The user's current password
 
 #### Get Order History ([API Reference](http://hackfood.ordr.in/docs/user#get_order_history))
