@@ -109,12 +109,12 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 - `current_password` : The user's current password
 
 ###### Either
-- `phone` : The customer's phone number
-- `zip` : The zip code part of the address (5 digits)
 - `addr` : The street address
 - `addr2` : The second part of the street address, if needed
 - `city` : The city part of the address
+- `phone` : The customer's phone number
 - `state` : The state part of the address (Two letters)
+- `zip` : The zip code part of the address (5 digits)
 
 ###### Or
 - `nick` : The delivery location nickname. (From the user's addresses)
@@ -122,16 +122,16 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 
 
 ###### Either
-- `card_name` : Full name as it appears on the credit card
-- `card_number` : Credit card number (16 digits)
-- `card_cvc` : 3 or 4 digit security code (3 or 4 digits)
-- `card_expiry` : The credit card expiration date. (mm/yyyy)
 - `card_bill_addr` : The credit card's billing street address
 - `card_bill_addr2` : The second part of the credit card's biling street address.
 - `card_bill_city` : The credit card's billing city
+- `card_bill_phone` : The credit card's billing phone number
 - `card_bill_state` : The credit card's billing state (2 letters)
 - `card_bill_zip` : The credit card's billing zip code (5 digits)
-- `card_bill_phone` : The credit card's billing phone number
+- `card_cvc` : 3 or 4 digit security code (3 or 4 digits)
+- `card_expiry` : The credit card expiration date. (mm/yyyy)
+- `card_name` : Full name as it appears on the credit card
+- `card_number` : Credit card number (16 digits)
 
 ###### Or
 - `card_nick` : The credit card nickname. (From the user's credit cards)
@@ -327,4 +327,5 @@ be sent to, and must be set to either `ordrin.PRODUCTION` or `ordrin.TEST`
 - `email` : The user's email address
 - `nick` : The nickname of this address
 - `current_password` : The user's current password
+
 
