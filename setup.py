@@ -11,8 +11,6 @@ setup(
     name="ordrin",
     version='1.0.4',
     packages=['ordrin'],
-    package_dir={'ordrin': 'ordrin'},
-    package_data={'ordrin': ['*.json']},
     py_modules=['distribute_setup'],
     description="Ordr.in API Client",
     author="Ordr.in",
