@@ -9,7 +9,7 @@ if not (sys.version_info.major == 2 and sys.version_info.minor == 7):
 
 setup(
     name="ordrin",
-    version='1.0.4',
+    version='1.0.5',
     packages=['ordrin'],
     py_modules=['distribute_setup'],
     description="Ordr.in API Client",
