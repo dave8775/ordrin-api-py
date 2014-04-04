@@ -9,7 +9,7 @@ if not (sys.version_info.major == 2 and sys.version_info.minor == 7):
 
 setup(
     name="ordrin",
-    version='1.0.3',
+    version='1.0.4',
     packages=['ordrin'],
     package_dir={'ordrin': 'ordrin'},
     package_data={'ordrin': ['*.json']},
